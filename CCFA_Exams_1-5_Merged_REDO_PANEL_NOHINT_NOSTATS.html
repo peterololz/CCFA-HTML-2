@@ -1,0 +1,5279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CCFA Exams 1-5 Merged Quiz</title>
+  <style>
+    :root{
+      --bg:#0b0f14;--card:#111827;--muted:#9aa4b2;--text:#e5e7eb;--accent:#60a5fa;
+      --good:#22c55e;--bad:#ef4444;--border:rgba(255,255,255,.08);
+      --shadow: 0 12px 40px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: radial-gradient(1000px 600px at 20% 0%, rgba(96,165,250,.18), transparent 55%),
+                  radial-gradient(900px 500px at 85% 15%, rgba(34,197,94,.12), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+      padding: 28px 16px 56px;
+    }
+    .wrap{max-width: 980px; margin:0 auto;}
+    .header{display:flex; gap:14px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; margin-bottom: 16px;}
+    .title{margin:0; font-size: 22px; font-weight: 800; letter-spacing: .2px;}
+    .sub{margin:6px 0 0; color: var(--muted); font-size: 14px; line-height: 1.45; max-width: 720px;}
+    .metaRow{display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:flex-end;}
+    .pill{display:inline-flex; align-items:center; gap:8px; border:1px solid var(--border);
+      background: rgba(255,255,255,.03); padding: 8px 10px; border-radius: 999px; font-size: 13px; white-space: nowrap;}
+    .pill b{font-weight:800}
+    .card{border: 1px solid var(--border); background: rgba(17,24,39,.78); backdrop-filter: blur(8px);
+      border-radius: 18px; box-shadow: var(--shadow); padding: 18px; overflow:hidden;}
+    .progressWrap{margin-top: 14px;}
+    .progressTop{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom: 8px;}
+    .progressText{color: var(--muted); font-size: 13px;}
+    .bar{width:100%; height: 10px; border-radius: 999px; background: rgba(255,255,255,.06); overflow:hidden; border: 1px solid var(--border);}
+    .bar > div{height:100%; width:0%; background: linear-gradient(90deg, rgba(96,165,250,.95), rgba(34,197,94,.95)); transition: width .28s ease;}
+    .qNum{font-size: 13px; color: var(--muted); letter-spacing:.2px; margin:0;}
+    .qTitle{margin: 6px 0 0; font-size: 18px; font-weight: 800; line-height: 1.35;}
+    .divider{height:1px; background: rgba(255,255,255,.08); margin: 14px 0;}
+    .options{display:grid; gap: 10px; margin-top: 10px;}
+    .opt{display:flex; gap: 10px; align-items:flex-start; border:1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03); padding: 10px 12px; border-radius: 14px; cursor:pointer;
+      transition: transform .08s ease, border-color .12s ease, background .12s ease;}
+    .opt:hover{transform: translateY(-1px); border-color: rgba(96,165,250,.35); background: rgba(96,165,250,.06);}
+    .opt input{margin-top: 3px;}
+    .opt .letter{font-weight: 900; width: 22px; color: rgba(229,231,235,.9);}
+    .opt .text{color: rgba(229,231,235,.92); line-height: 1.35;}
+    .actions{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top: 14px;}
+    button{appearance:none; border:1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.04); color: var(--text);
+      padding: 10px 14px; border-radius: 12px; font-weight: 800; cursor:pointer;
+      transition: transform .08s ease, border-color .12s ease, background .12s ease;}
+    button:hover{transform: translateY(-1px); border-color: rgba(96,165,250,.45); background: rgba(96,165,250,.10);}
+    button:disabled{opacity: .55; cursor:not-allowed; transform:none;}
+    .primary{border-color: rgba(96,165,250,.55); background: rgba(96,165,250,.14);}
+    .ghost{background: transparent;}
+    .feedback{margin-top: 14px; padding: 12px 14px; border-radius: 14px; border: 1px solid rgba(255,255,255,.12); display:none;}
+    .feedback.good{border-color: rgba(34,197,94,.45); background: rgba(34,197,94,.10);}
+    .feedback.bad{border-color: rgba(239,68,68,.45); background: rgba(239,68,68,.10);}
+    .feedback .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom: 6px;}
+    .badge{display:inline-flex; align-items:center; gap:8px; padding: 6px 10px; border-radius: 999px; font-size: 12px;
+      border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.04); font-weight: 900;}
+    .badge.good{border-color: rgba(34,197,94,.45); background: rgba(34,197,94,.12);}
+    .badge.bad{border-color: rgba(239,68,68,.45); background: rgba(239,68,68,.12);}
+    .muted{color: var(--muted); font-size: 13px;}
+    .explain{margin: 8px 0 0; color: rgba(229,231,235,.92); line-height: 1.45;}
+    .hint{margin-top: 12px; color: var(--muted); font-size: 13px;}
+    .kbd{border:1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.04); padding: 1px 8px; border-radius: 8px; font-weight: 900;}
+  
+    .savewrap{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-left:auto}
+    .autosave{display:flex;align-items:center;gap:8px;font-size:13px;opacity:.9}
+    .autosave input{transform:translateY(1px)}
+    .ghost{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#e9eef6;padding:10px 14px;border-radius:14px;font-weight:700;cursor:pointer}
+    .ghost:hover{background:rgba(255,255,255,.09)}
+    .ghost.danger{border-color:rgba(255,80,80,.28);color:#ffd7d7}
+    .ghost.danger:hover{background:rgba(255,80,80,.10)}
+    .savestatus{font-size:12px;opacity:.75;min-width:120px}
+
+
+    /* Mistakes modal */
+    .modal{ position:fixed; inset:0; background:rgba(0,0,0,.55); display:flex; align-items:center; justify-content:center; padding:18px; z-index:9999;}
+    .modal-card{ width:min(980px, 96vw); max-height:88vh; overflow:hidden; background:#0f172a; border:1px solid rgba(255,255,255,.12); border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,.35); }
+    .modal-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; padding:14px 16px; border-bottom:1px solid rgba(255,255,255,.10); }
+    .modal-title{ font-weight:700; font-size:18px; }
+    .modal-sub{ opacity:.8; font-size:12px; margin-top:2px; }
+    .modal-actions{ display:flex; flex-wrap:wrap; gap:8px; padding:12px 16px; border-bottom:1px solid rgba(255,255,255,.10); }
+    .modal-body{ padding:14px 16px; overflow:auto; max-height:calc(88vh - 120px); }
+    .mistakes-list{ display:grid; gap:12px; }
+    .mistake-card{ border:1px solid rgba(255,255,255,.10); border-radius:14px; padding:12px 12px; background:rgba(255,255,255,.03); }
+    .mistake-top{ display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap; }
+    .mistake-q{ font-weight:650; }
+    .mistake-meta{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .pill{ display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); font-size:12px; opacity:.95; }
+    .pill.bad{ border-color: rgba(239,68,68,.45); }
+    .pill.good{ border-color: rgba(34,197,94,.45); }
+    .mistake-grid{ display:grid; grid-template-columns:1fr; gap:8px; margin-top:10px; }
+    @media (min-width: 900px){ .mistake-grid{ grid-template-columns:1fr 1fr; } }
+    .mistake-box{ border:1px dashed rgba(255,255,255,.14); border-radius:12px; padding:10px; }
+    .mistake-box b{ font-weight:700; }
+    .mistake-actions{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
+    .tiny{ font-size:12px; opacity:.85; }
+
+    /* Options review inside mistakes modal */
+    .opt-review{ display:grid; gap:6px; margin-top:10px; }
+    .opt-item{ display:flex; gap:8px; align-items:flex-start; padding:8px 10px; border-radius:12px;
+      border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.02); }
+    .opt-letter{ min-width:22px; font-weight:800; }
+    .opt-item.correct{ border-color: rgba(70,255,160,.28); background: rgba(70,255,160,.06); }
+    .opt-item.selected-wrong{ border-color: rgba(255,80,80,.28); background: rgba(255,80,80,.07); }
+    .opt-item.selected-correct{ border-color: rgba(70,255,160,.35); background: rgba(70,255,160,.10); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <div>
+        <h1 class="title">CCFA Practice Quiz – Exams 1-5 (Merged)</h1>
+      <div id="countWarn" class="sub" style="margin-top:6px; color:#ffb4b4; display:none;"></div>
+        <p class="sub">One question at a time. Question order and answer order are randomized on load. Submit each question for instant feedback + explanation.</p>
+      </div>
+      <div class="metaRow">
+        <div class="pill">Answered: <b id="answered">0</b>/<b id="total">0</b></div>
+        <div class="pill">Score: <b id="score">0</b></div>
+        <div class="pill">Current: <b id="currentIdx">1</b>/<b id="total2">0</b></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="progressWrap">
+        <div class="progressTop">
+          <div class="progressText" id="progressText">Progress: 0%</div>
+          <div class="progressText muted" id="progressDetail">0 answered • 0 correct</div>
+        </div>
+        <div class="bar"><div id="barFill"></div></div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div id="questionArea"></div>
+
+      <div class="divider"></div>
+
+      <div class="actions">
+        <button class="ghost" id="prevBtn" onclick="prevQ()">← Previous</button>
+        <button class="ghost" id="nextBtn" onclick="nextQ()">Next →</button>
+        <button class="primary" id="submitBtn" onclick="submitAnswer()">Submit Answer</button>
+        <button id="resetBtn" onclick="resetQuiz()">Reset (reshuffle)</button>
+        <button class="ghost" id="reviewMistakesBtn" type="button">Ver falladas</button>
+        <button class="ghost" id="practiceMistakesBtn" type="button" title="Navega solo por las preguntas falladas">Repasar falladas</button>
+
+        <div class="savewrap">
+          <label class="autosave">
+            <input type="checkbox" id="autoSaveToggle" checked>
+            Auto-guardar
+          </label>
+          <button class="ghost" type="button" id="saveBtn" onclick="saveProgress(true)">Guardar</button>
+          <button class="ghost" type="button" id="loadBtn" onclick="loadProgress(true)">Cargar</button>
+          <button class="ghost danger" type="button" id="clearBtn" onclick="clearProgress()">Borrar</button>
+          <span class="savestatus" id="saveStatus" aria-live="polite"></span>
+        </div>
+
+      </div>
+
+      <div class="hint">
+        Shortcuts: <span class="kbd">←</span>/<span class="kbd">→</span> to navigate • <span class="kbd">Enter</span> to submit
+      </div>
+    </div>
+  </div>
+
+<script>
+const RAW_QUESTIONS = [
+  {
+    "id": "q001",
+    "prompt": "What are the modes the Falcon sensor for Linux can operate in?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Kernel, User, RFM, and watch modes"
+      },
+      {
+        "id": "o2",
+        "text": "Kernel and RFM mode"
+      },
+      {
+        "id": "o3",
+        "text": "Kernel mode only"
+      },
+      {
+        "id": "o4",
+        "text": "Kernel Mode, User Mode, and Reduced Functionality Mode (RFM)"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "Check if your linux distro and kernel are not supported. When you have custom configurations in place, your sensor might go into User mode when in fact, it can run in kernel (optimal). Contact support to help you transition to kernel mode.",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q002",
+    "prompt": "What happens to an active host when is accidently deleted/hidden from the host Management dashboard?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "It is moved to the Host Management -> Trash page, and continues to send events and enforce policies"
+      },
+      {
+        "id": "o2",
+        "text": "The host cannot be recovered and another sensor installation is required"
+      },
+      {
+        "id": "o3",
+        "text": "There is no trash page. The host gets deleted immediately."
+      },
+      {
+        "id": "o4",
+        "text": "The host gets deleted after 30 days, and the host is unprotected."
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "It is moved to the Host Management -> Trash page, and continues to send events and enforce policies. They can be restored. They won't be deleted until they stop connecting to the cloud for 45 days.",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q003",
+    "prompt": "What permissions will someone with the Real Time Responder - Read Only Analyst Role will have when connecting to a host?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Can run all commands, create custom scripts, and upload files to hosts."
+      },
+      {
+        "id": "o2",
+        "text": "Can run a core set of read-only commands to do reconnaissance along with the get command to retrieve files."
+      },
+      {
+        "id": "o3",
+        "text": "Can run all commands and run custom scripts."
+      },
+      {
+        "id": "o4",
+        "text": "Can run a core set of read-only response commands to perform reconnaissance."
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q004",
+    "prompt": "After installing the crowdstrike sensor, the agent opens a permanent TLS connection over port __?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "22"
+      },
+      {
+        "id": "o2",
+        "text": "443"
+      },
+      {
+        "id": "o3",
+        "text": "80"
+      },
+      {
+        "id": "o4",
+        "text": "434"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "HTTPS-443",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q005",
+    "prompt": "What is OS Feature Manager?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Another term to refer to hosts on reduced functionality mode"
+      },
+      {
+        "id": "o2",
+        "text": "Its another term for channel files"
+      },
+      {
+        "id": "o3",
+        "text": "A program to gather troubleshooting logs to send to support"
+      },
+      {
+        "id": "o4",
+        "text": "Monitors changes in the Windows kernel so the sensor can adapt appropriately"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "This is used to monitor the windows kernel to make sure you still have a supported kernel version. There is a OSFM certification file that is given to the sensor to exit the sensor out of RFM. Go to windows deployment in the documentation for more details.",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q006",
+    "prompt": "What is the command needed to install the falcon sensor on a RHEL, CentOS, or Amazon Linux machine?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "sudo dpkg -i <installer_filename>"
+      },
+      {
+        "id": "o2",
+        "text": "sudo zypper install <installer_filename>"
+      },
+      {
+        "id": "o3",
+        "text": "sudo yum install <installer_filename>"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q007",
+    "prompt": "What are the 3 components of a condition in a falcon workflow?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Parameter, Operator, and Value"
+      },
+      {
+        "id": "o2",
+        "text": "Trigger,Condition, and Notification"
+      },
+      {
+        "id": "o3",
+        "text": "Trigger, Condition, Action"
+      },
+      {
+        "id": "o4",
+        "text": "Parameter,condition, and value"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "Try creating a workflow and add a condition for you to see parameter, operator, and value as the components.",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q008",
+    "prompt": "What is the maximum number of policies, including the default policy, you can have?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "No limit"
+      },
+      {
+        "id": "o2",
+        "text": "200"
+      },
+      {
+        "id": "o3",
+        "text": "100"
+      },
+      {
+        "id": "o4",
+        "text": "300"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q009",
+    "prompt": "To apply a Cutom IOA to machines, you need to assigned them to a?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "The hosts in host management"
+      },
+      {
+        "id": "o2",
+        "text": "Sensor Update Policy"
+      },
+      {
+        "id": "o3",
+        "text": "Host group"
+      },
+      {
+        "id": "o4",
+        "text": "Prevention Policy"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "Prevention policy. When you got to prevention policies and edit one, you will see host groups and a third tab called, \"Assigned Custom IOA\" where you can set your IOA rule groups.",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q010",
+    "prompt": "Where in the console can you find a list of macOS hosts in Reduced Functionality Mode (RFM)?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "RFM only happens for windows and Linux machines"
+      },
+      {
+        "id": "o2",
+        "text": "Endpoint Security > Monitor > RFM"
+      },
+      {
+        "id": "o3",
+        "text": "Investigate>Visibility Reports>RFM"
+      },
+      {
+        "id": "o4",
+        "text": "Host Management > Use RFM filter"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "Host Management is only one way to see these. There are more.",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q011",
+    "prompt": "While in a Real Time Response session (RTR), what is the command and maximum file size that can be retrieved?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "get,4GB"
+      },
+      {
+        "id": "o2",
+        "text": "find,4GB"
+      },
+      {
+        "id": "o3",
+        "text": "file,8GB"
+      },
+      {
+        "id": "o4",
+        "text": "lsof,8GB"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "The get command is the one needed to retrieve a file and according to their documentation, 4GB is the maximum file size. Good to know in case you try to retrieve a file and it fails.",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q012",
+    "prompt": "What is a common reason for hosts to enter into Reduced Functionality Mode?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "When hosts are not assigned a host group"
+      },
+      {
+        "id": "o2",
+        "text": "After Falcon updates"
+      },
+      {
+        "id": "o3",
+        "text": "After Linux kernel updates"
+      },
+      {
+        "id": "o4",
+        "text": "When the host can't connect to the console after 45 days."
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "After Linux kernel updates. Go to support documentation on the \"Linux Supported Kernels\" page to find like a calculator where you can put your distro and kernel version to see if Crowdstrike supports your Linux Machine.",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q013",
+    "prompt": "What hosts can be contained by Crowdstrike?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Windows Only"
+      },
+      {
+        "id": "o2",
+        "text": "Windows and Linux only"
+      },
+      {
+        "id": "o3",
+        "text": "Windows and macOS only"
+      },
+      {
+        "id": "o4",
+        "text": "Windows, macOS, and linux"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "You can contain windows, macOS, and Linux devices in case there is case you suspect the machine is compromised.",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q014",
+    "prompt": "What is the max number of Falcon/sensor grouping tags that can be added per host?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "100"
+      },
+      {
+        "id": "o2",
+        "text": "50"
+      },
+      {
+        "id": "o3",
+        "text": "1000"
+      },
+      {
+        "id": "o4",
+        "text": "Unlimited"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q015",
+    "prompt": "Which of the following filter fields are not available in the host management dashboard?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Username"
+      },
+      {
+        "id": "o2",
+        "text": "Type"
+      },
+      {
+        "id": "o3",
+        "text": "Hostname"
+      },
+      {
+        "id": "o4",
+        "text": "OS Build"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "As an administrator, I recommend using the Type field for your dynamic group rule logic. With \"type\" separate your servers from your workstations. This will be helpful to allow programs in your exclusions that you don't want your servers to have. Every exclusion is a blind spot. If there are not servers in your environment, divide them by OS or just keep them as workstations and create different static groups as exclusions are needed. Username does NOT exist.",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q016",
+    "prompt": "Where can you see if your sensor visibility exclusions are working?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Endpoint Security > Sensor visibility Exclusions"
+      },
+      {
+        "id": "o2",
+        "text": "Audit Logs > Audit Logs > Sensor visibility Exclusions"
+      },
+      {
+        "id": "o3",
+        "text": "Audit Logs > Audit Logs > Exclusions"
+      },
+      {
+        "id": "o4",
+        "text": "Investigate> Exclusions > Sensor visibility Exclusions"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "This dasboard can help you see if the exclusions you made are working. There are programs like tanium that need these type of exclusions to avoid dangerous CPU and memory usage.",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q017",
+    "prompt": "What is the reason to see a host with multiple Agent ID (AID) values?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "The endpoint entered Reduced Functionality Mode and exited that state"
+      },
+      {
+        "id": "o2",
+        "text": "The machine became active again after being inactive for 30 days"
+      },
+      {
+        "id": "o3",
+        "text": "The falcon sensor was installed more than once on the same machine"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "The falcon sensor was installed more than once on the same machine. Go to \"host management\" and use the hostname filter and if they show more than one for a hostname, there is a duplicate host. Delete the ones with the oldest \"Last Seen\" field. There are dasboards to find duplicate hosts as well.",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q018",
+    "prompt": "Your agents need to be able to communicate to this cloud network.",
+    "options": [
+      {
+        "id": "o1",
+        "text": "*.cloudstrike.net"
+      },
+      {
+        "id": "o2",
+        "text": "*.cloudsink.net"
+      },
+      {
+        "id": "o3",
+        "text": "*.crowdstrike.net"
+      },
+      {
+        "id": "o4",
+        "text": "*.crowdstrike.us-2.com"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "Refer to \"Cloud IP Addresses and FQDNs\" in the documentation to find what domains need to be allowed by your firewall team. The list depends on your deployment. Check the URL of your CS console login to see if you are US-2, GOV-2, etc\u2026",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q019",
+    "prompt": "You can only downgrade to a sensor version released in the last __ days.",
+    "options": [
+      {
+        "id": "o1",
+        "text": "60"
+      },
+      {
+        "id": "o2",
+        "text": "120"
+      },
+      {
+        "id": "o3",
+        "text": "180"
+      },
+      {
+        "id": "o4",
+        "text": "90"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q020",
+    "prompt": "Which of the following statements are false regarding Sensor Visbility Exclusions?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Processes that match file exclusion criteria will no longer generate the majority of events that would be seen otherwise, including process-related events"
+      },
+      {
+        "id": "o2",
+        "text": "Process tree and file name are captured."
+      },
+      {
+        "id": "o3",
+        "text": "SHA256 digest is captured"
+      },
+      {
+        "id": "o4",
+        "text": "The sensor will continue to send EndOfProcess events on Windows and macOS."
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "SHA256 digest is not captured. This is found on the documentation.",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q021",
+    "prompt": "What is the maximum amount of tokens you can have?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "No limit"
+      },
+      {
+        "id": "o2",
+        "text": "10"
+      },
+      {
+        "id": "o3",
+        "text": "50"
+      },
+      {
+        "id": "o4",
+        "text": "30"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q022",
+    "prompt": "What indicator, in IOC management, can you set to be BLOCKED?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Hash, IP Address, Domain"
+      },
+      {
+        "id": "o2",
+        "text": "Hash, IP Address"
+      },
+      {
+        "id": "o3",
+        "text": "Domain, IP Address"
+      },
+      {
+        "id": "o4",
+        "text": "Hash"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "You can only block a hash. IPs and domain can only be set to \"Detect Only\" or \"No Action.\" This is where Crowdstrike sells you the Falcon Firewall Management module for firewall capabilities.",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q023",
+    "prompt": "What is the name of the uninstall tool provided by crowdstrike to uninstall the windows falcon sensor?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "FalconWinUninstall.exe"
+      },
+      {
+        "id": "o2",
+        "text": "You uninstall sensors from Host Management"
+      },
+      {
+        "id": "o3",
+        "text": "Uninstall.exe"
+      },
+      {
+        "id": "o4",
+        "text": "CsUninstallTool.exe"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "This is the second method to uninstall the sensor. The name is CsUninstallTool.exe. You can put this file on the machine and run this command: CsUninstallTool.exe /quiet",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q024",
+    "prompt": "How often are installation tokens checked?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Every minute to ensure token still valid"
+      },
+      {
+        "id": "o2",
+        "text": "Every time the sensor connects to the CS cloud"
+      },
+      {
+        "id": "o3",
+        "text": "Daily to ensure token validation"
+      },
+      {
+        "id": "o4",
+        "text": "Only once when the sensor is installed"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "Only when the sensor is installed. Even if a token is deleted, it does not affect the state of the sensors already installed. You can toggle a setting in the \"Installation Tokens\" page to only allow tokens instead of CCIDs for deployment. This is best practices but harder in a multi-tenant console.",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q025",
+    "prompt": "Crowdstrike recommends not letting sensors age more than __ days after their release.",
+    "options": [
+      {
+        "id": "o1",
+        "text": "180"
+      },
+      {
+        "id": "o2",
+        "text": "60"
+      },
+      {
+        "id": "o3",
+        "text": "30"
+      },
+      {
+        "id": "o4",
+        "text": "90"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q026",
+    "prompt": "Where do you find a list of inactive sensors?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Host setup and management > Manage Endpoints > Inactive Sensors"
+      },
+      {
+        "id": "o2",
+        "text": "Endpoint Security > Monitor > Inactive Sensors"
+      },
+      {
+        "id": "o3",
+        "text": "A sensor is always active until it is removed from the console."
+      },
+      {
+        "id": "o4",
+        "text": "Investigate > Asset Status > Inactive Sensors"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "Check this dashboard or get a scheduled search for this because you could have machines that are in use but for some reason they cannot connect to the CS cloud and after 45 days, they will drop out of the console. Some could be duplicates so you can delete them to keep your licenses current.",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q027",
+    "prompt": "What is the max number of Falcon/sensor grouping tags that can be added per CID?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "10.000"
+      },
+      {
+        "id": "o2",
+        "text": "1.000"
+      },
+      {
+        "id": "o3",
+        "text": "30.000"
+      },
+      {
+        "id": "o4",
+        "text": "Unlimited"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q028",
+    "prompt": "How can you uninstall the falcon sensor on a windows machine?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Use the FalconWinUninstall.exe tool from Tool Downloads"
+      },
+      {
+        "id": "o2",
+        "text": "Uninstall it from control panel>programs and features"
+      },
+      {
+        "id": "o3",
+        "text": "Select host from Host Management > actions > uninstall"
+      },
+      {
+        "id": "o4",
+        "text": "Using device manager"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "There are two ways to uninstall the sensor. This is one of them. You can have a sensor update policy \"Uninstall and maintenance protection\" off so that it does not require a token to uninstall the sensor. If not, you will need to retrieve the token from \"Host Management.\"",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q029",
+    "prompt": "For how long are files retrieved from a Real Time Response session stored in the crowdstrike cloud?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "7 days"
+      },
+      {
+        "id": "o2",
+        "text": "30 days"
+      },
+      {
+        "id": "o3",
+        "text": "They are not stored."
+      },
+      {
+        "id": "o4",
+        "text": "90 days"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "Only 7 days. You can choose to delete them before that time period.",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q030",
+    "prompt": "What is the command line flag needed when installing the Falcon sensor for Windows on a virtual machine template?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "VDI=1"
+      },
+      {
+        "id": "o2",
+        "text": "NO_START=1"
+      },
+      {
+        "id": "o3",
+        "text": "PACURL=VM"
+      },
+      {
+        "id": "o4",
+        "text": "ProvNoWait=1"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "You need to use the NO_START=1 for a Virtual Machine and VDI=1 for a non-persistent VDI machine that is domain joined and uses FQDN.",
+    "source": "CCFA_Test_Exam_1"
+  },
+  {
+    "id": "q031",
+    "prompt": "When running an on-demand scan, what type of files are scanned and quarantined?",
+    "options": [
+      {
+        "id": "o1",
+        "text": ".zip, .pst, .exe, and .dll files"
+      },
+      {
+        "id": "o2",
+        "text": "Portable Executable (PE) files such as .exe and .dll files"
+      },
+      {
+        "id": "o3",
+        "text": "There are no on-demand scans. The sensor never stops scanning"
+      },
+      {
+        "id": "o4",
+        "text": "Any file format"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "Refer to On-Demand Scanning > Limitations and considerations in the documentation.",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q032",
+    "prompt": "Where can you find quarantined files?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Endpoint security > Monitor > Quarantined files"
+      },
+      {
+        "id": "o2",
+        "text": "Audit Logs > Audit Logs > Quarantined files"
+      },
+      {
+        "id": "o3",
+        "text": "Investigate > Search > Quarantined files"
+      },
+      {
+        "id": "o4",
+        "text": "Host Setup and Management > Manage Endpoints > Quarantined files"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q033",
+    "prompt": "Which user role can run the \"put\" command to transfer files to a host in a Real Time Response session?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Falcon Administrator"
+      },
+      {
+        "id": "o2",
+        "text": "RTR Read Only Analyst"
+      },
+      {
+        "id": "o3",
+        "text": "RTR Active Responder"
+      },
+      {
+        "id": "o4",
+        "text": "RTR Administrator"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "Refer to \"Real Time Response and Network Containment\" document in the support documentation for full details.",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q034",
+    "prompt": "When adding multiple tags in a host during deployment, what do you have to use to seperate the tags in the command line flag?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "COMMA-,"
+      },
+      {
+        "id": "o2",
+        "text": "SPACE"
+      },
+      {
+        "id": "o3",
+        "text": "DOT-."
+      },
+      {
+        "id": "o4",
+        "text": "PARENTHESIS-()"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "This is an example of how you add the sensor grouping tags of California and Production while installing the sensor <installer_filename> /install /norestart CID=<CCID> GROUPING_TAGS=\"California,Production\" You need a comma to add more tags up to 50 per host.",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q035",
+    "prompt": "What are the three type of exclusions you can have in Crowdstrike?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Machine Learning, Indicator of Compromise, Sensor exclusions"
+      },
+      {
+        "id": "o2",
+        "text": "Machine Learning, Indicator of attack, Sensor visibility"
+      },
+      {
+        "id": "o3",
+        "text": "Artificial Intelligence, Indicator of attack, Sensor visibility exclusions"
+      },
+      {
+        "id": "o4",
+        "text": "Machine Learning, Signature Confidence, Sensor exclusions"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "You can find them in Endpoint Security > Configure > Exclusions. Use ML exclusions for ML detections along with IOC management. IOA exclusions for IOA detections and sensor visibility exclusions for applications causing high CPU or memory issues when CS is installed.",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q036",
+    "prompt": "Why would you run command (sc.exe query csagent) in a windows machine for?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "To uninstall the crowdstrike sensor"
+      },
+      {
+        "id": "o2",
+        "text": "To verify that the sensor is running"
+      },
+      {
+        "id": "o3",
+        "text": "To see the falcon sensor version"
+      },
+      {
+        "id": "o4",
+        "text": "To restart the sensor if it goes inactive"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "Refer to Falcon sensor for windows for more details and for an example of how the output looks when the sensor is running.",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q037",
+    "prompt": "Which dashboard can give you a count of Sensors with duplicate AID?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Dashboards and Reports > All Dashboards > Sensor Report"
+      },
+      {
+        "id": "o2",
+        "text": "Dashboards and Reports > All Dashboards > Assets Overview"
+      },
+      {
+        "id": "o3",
+        "text": "Dashboards and Reports > All Dashboards > Managed Assets"
+      },
+      {
+        "id": "o4",
+        "text": "Executive Summary"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "You can find this on Dashboards and Reports > Reports > Executive Summary",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q038",
+    "prompt": "Where can you find a report/dashboard with a summary of the agent versions of your hosts?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Host Setup and management > Agent Health"
+      },
+      {
+        "id": "o2",
+        "text": "Dashboards and Reports > Reports > Sensor Report"
+      },
+      {
+        "id": "o3",
+        "text": "Investigate > Hunt > Agent Health Dashboard"
+      },
+      {
+        "id": "o4",
+        "text": "Host Setup and Management > Manage Endpoints > Sensor Health"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "The sensor report will give you a pie chart with the sensor/agent versions. You can also see agent versions in Host Setup and Management > Manage Endpoints > Host Dashboard.",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q039",
+    "prompt": "What prevention policy settings must be in place, for your endpoints to quarantine files?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Malware Protection and Windows Anti-Malware Execution Blocking must be enabled"
+      },
+      {
+        "id": "o2",
+        "text": "Next-Gen Antivirus Prevention sliders and \"Quarantine & Security Center Registration\" must be enabled"
+      },
+      {
+        "id": "o3",
+        "text": "Behavior-Based Threat Prevention sliders and Advanced Remediation Actions must be enabled"
+      },
+      {
+        "id": "o4",
+        "text": "Malware Protection and Custom Execution Blocking must be enabled"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "Edit a prevention policy to see these settings. Read the documentation and get familiar with each setting. You don't have to memorize each one.",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q040",
+    "prompt": "What command line flag can you use at deployment to assign a tag to a host?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "TAGS"
+      },
+      {
+        "id": "o2",
+        "text": "FALCON_TAGS"
+      },
+      {
+        "id": "o3",
+        "text": "GROUPING_TAGS"
+      },
+      {
+        "id": "o4",
+        "text": "HOST_TAG"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q041",
+    "prompt": "Which of the following installation flags is important when installing a Windows sensor on hosts using IE proxy detection?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "VDI=1"
+      },
+      {
+        "id": "o2",
+        "text": "APP_PROXYNAME=1"
+      },
+      {
+        "id": "o3",
+        "text": "ProvNoWait=1"
+      },
+      {
+        "id": "o4",
+        "text": "NO_START=1"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "On hosts using IE proxy detection, install the sensor from the command line using the ProvNoWait parameter. The sensor acquires proxy settings from the user registry hive with the next user login. Read support documenation, \"Falcon Sensor for Windows Deployment\" refer to \"Installing the sensor with IE proxy detection.\"",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q042",
+    "prompt": "When deploying the CS sensor on a Mac, what are some host authorizations required for the sensor to work properly?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Crowdstrike Kernel extension and BIOS visibility through an MDM profile"
+      },
+      {
+        "id": "o2",
+        "text": "The Mac sensor does not need any special host authorizations. Download the .pkg and paste the CCID"
+      },
+      {
+        "id": "o3",
+        "text": "The Mac sensor can only be deployed with an MDM and a profile. You cannot manually install the Mac sensor. The profile allows full disk access to Crowdstrike on the host."
+      },
+      {
+        "id": "o4",
+        "text": "System extension, Network filter extension, Crowdstrike full disk access."
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "When you manually install the Mac sensor, network filter extension will prompt, click allow. Go to Privacy & Security > Full disk access and you will see a white shield icon called \"Falcon Sensor\" that is the system extension. Click the plus icon > applications > select the Falcon application and that is how you give Crowdstrike full disk access. If you use an MDM, in the documentation, they give you the profile with these host authorizations on it. Refer to \"Falcon Sensor for Mac Deployment\" in the documentation.",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q043",
+    "prompt": "On Windows Server 2016, Server 2019, and Server 2022, Windows Defender is enabled by default. To use quarantine on these operating systems, you must disable Defender. What is the command to disable defender?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Set-MpPreference -DisableMonitoring $true"
+      },
+      {
+        "id": "o2",
+        "text": "Set-MpPreference -DisableMonitoring $false"
+      },
+      {
+        "id": "o3",
+        "text": "Set-MpPreference -DisableRealtimeMonitoring $true"
+      },
+      {
+        "id": "o4",
+        "text": "Set-MpPreference -DisableDefender $true"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "Because Windows Server operating systems do not have Windows Security Center, the sensor can't register with it like Windows 10 and disable Windows Defender automatically. You will need to run this command to use the quarantine option on these servers. Refer to Falcon Sensor for Windows in the documentation.",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q044",
+    "prompt": "What dashboard shows you unsupported sensor versions running in your environment?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Host Setup and Management > Manage Endpoints > Host Dashboard"
+      },
+      {
+        "id": "o2",
+        "text": "Host Setup and Management > Manage Endpoints > Host Management"
+      },
+      {
+        "id": "o3",
+        "text": "Dashboards and Reports > Reports > Sensor Report"
+      },
+      {
+        "id": "o4",
+        "text": "Host Setup and Management > Manage Endpoints > Sensor Health"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "This report shows you for how long your sensors are going to still be supported and when the support for a sensor ends. Always put your sensors on Auto-N1. Crowdstrike is great at not introducing issues in new releases like other EDR solutions.",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q045",
+    "prompt": "How can you have a prevention policy that only detects but does not prevent anything?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Put the policy on monitor mode and you will see would be block detections in detections page of the files that would have been blocked if watch mode was enabled."
+      },
+      {
+        "id": "o2",
+        "text": "You cannot have a sensor on detection mode only"
+      },
+      {
+        "id": "o3",
+        "text": "You must set the three detection sliders to the desired detection level and all the prevention sliders to disabled. Do not activate any of the other blocking or malware prevention options."
+      },
+      {
+        "id": "o4",
+        "text": "On the prevention policy, set the Cloud and Sensor Machine Learning detection and prevention sliders to the desired level and put the policy on monitor mode instead of enforced mode."
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q046",
+    "prompt": "What happens when you release a quarantined file?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "The file is allowed to execute on that host. Releasing a file does not affect other hosts."
+      },
+      {
+        "id": "o2",
+        "text": "The file is allowed to run in all hosts in your environment"
+      },
+      {
+        "id": "o3",
+        "text": "It goes back to its original folder, but it gets quarantined again when it tries to run. You need to whitelist it first"
+      },
+      {
+        "id": "o4",
+        "text": "Its hash is added to IOC management as allowed to run in your environment"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "Refer to Quarantine Files in the documentation.",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q047",
+    "prompt": "While installing the falcon sensor, if the host can't contact crowdstrike cloud, it will retry the connection for __ minutes. After that, the host will automatically uninstall its sensor.",
+    "options": [
+      {
+        "id": "o1",
+        "text": "20"
+      },
+      {
+        "id": "o2",
+        "text": "10"
+      },
+      {
+        "id": "o3",
+        "text": "30"
+      },
+      {
+        "id": "o4",
+        "text": "40"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "Since the host cannot connect to the cloud, it cannot get an Agent ID and register in your console so it will uninstall itself from the machine. Try the latest sensor and make sure the CCID is correct. Check if the machine can connect to the internet.",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q048",
+    "prompt": "For how long, does CrowdStrike keep detection data in the cloud?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "30 Days"
+      },
+      {
+        "id": "o2",
+        "text": "60 Days"
+      },
+      {
+        "id": "o3",
+        "text": "90 Days"
+      },
+      {
+        "id": "o4",
+        "text": "120 Days"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q049",
+    "prompt": "What is the minimum user role needed to use the \"get\" command in a RTR session?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Falcon Administrator"
+      },
+      {
+        "id": "o2",
+        "text": "Falcon Security Lead"
+      },
+      {
+        "id": "o3",
+        "text": "RTR-Active Responder"
+      },
+      {
+        "id": "o4",
+        "text": "RTR - Read Only Analyst"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "Refer to \"Roles and Permissions\" page for more details. There are only 3 RTR roles and the read only analyst does not have the get command included. Even Falcon Admins need an RTR role to remote into the machines.",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q050",
+    "prompt": "On-demand scans are only available to run on ____ devices.",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Windows and Linux"
+      },
+      {
+        "id": "o2",
+        "text": "Windows"
+      },
+      {
+        "id": "o3",
+        "text": "Any operating system"
+      },
+      {
+        "id": "o4",
+        "text": "Windows and MacOS"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "Refer to On-Demand Scanning. If you schedule a scan for a Mac or linux it will never run.",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q051",
+    "prompt": "What do falcon sensors need to download to be considered \"fully provisioned\"?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Prevention Policy"
+      },
+      {
+        "id": "o2",
+        "text": "Sensor Policy"
+      },
+      {
+        "id": "o3",
+        "text": "Channel Files"
+      },
+      {
+        "id": "o4",
+        "text": "First heartbeat to the cloud"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "When a host has downloaded all available channel files, the CrowdStrike cloud notes that the host is fully provisioned. You can check the provisioning status of your hosts on the Sensor Health dashboard. Refer to Falcon Sensor for Windows Deployment > refer to \"Provisioning phase\" in the documentation.",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q052",
+    "prompt": "A file was quarantined and you released it. After doing more investigation you decide to undo the release of that file. What happens to that file?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "The file hash gets added to the blocklist in IOC management"
+      },
+      {
+        "id": "o2",
+        "text": "The file is treated as malicious again. The next time the file attempts to execute, the sensor blocks and quarantines it again. The sensor does not quarantine the file immediately."
+      },
+      {
+        "id": "o3",
+        "text": "The file gets quarantined immediately"
+      },
+      {
+        "id": "o4",
+        "text": "The file is deleted."
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "Refer to Quarantined Files > Undo a released file in the documentation",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q053",
+    "prompt": "Where can you find Linux host that are in Reduced Functionality Mode (RFM)?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Dashboards and Reports > Reports > Sensor Report"
+      },
+      {
+        "id": "o2",
+        "text": "Host Setup and Management > Manage Endpoints > Sensor Health"
+      },
+      {
+        "id": "o3",
+        "text": "Investigate > RFM Linux"
+      },
+      {
+        "id": "o4",
+        "text": "Activity Dashboard"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "Sensor Health will give you information on all hosts in RFM from all platforms.",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q054",
+    "prompt": "Where can you see the allowed email domains in the Crowdstrike console?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Audit Logs > Allowed Domains"
+      },
+      {
+        "id": "o2",
+        "text": "Support and Resources > Support > Email Settings"
+      },
+      {
+        "id": "o3",
+        "text": "Support and Resources > General Settings"
+      },
+      {
+        "id": "o4",
+        "text": ""
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "To add users to the crowdstrike console, you need to allow the domain of the users email. If your email is Ian.Lopez@randomdomain.com, you need to open a support ticket asking to allow domain @randomdomain.com before you are able to add users from that domain to the CS console.",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q055",
+    "prompt": "What kind of information may be found in the Falcon UI Audit Trail Dashboard?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Executables that could have been blocked if prevention policy sliders where set more aggressively"
+      },
+      {
+        "id": "o2",
+        "text": "Failed API requests"
+      },
+      {
+        "id": "o3",
+        "text": "Details about user and API activity in the Falcon console"
+      },
+      {
+        "id": "o4",
+        "text": "Prevention Policy not applied to hosts"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "Found on Audit Logs > Audit Logs > Falcon UI. You can see actions such as user login authentications, policy creation, rules removed, etc...",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q056",
+    "prompt": "What is the primary purpose of using host groups with sensor update policies in CrowdStrike?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "To control the throttle sensor update rate"
+      },
+      {
+        "id": "o2",
+        "text": "To control network bandwidth"
+      },
+      {
+        "id": "o3",
+        "text": "To allow the order in which sensors are upgraded"
+      },
+      {
+        "id": "o4",
+        "text": "To allow the controlled assignment of sensor versions onto specific hosts"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "You may want to keep sensors on a specific version since the latest version can introduce interoperability issues with an application. It is recommended to have a group with the latest version (Auto-Latest) and the rest of your machines on \"Auto-N-1\".",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q057",
+    "prompt": "What is the Prevention Policy Debug report used for?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "It helps administrators see hosts without a prevention policy"
+      },
+      {
+        "id": "o2",
+        "text": "Lets you see details when you get an error while creating a prevention policy"
+      },
+      {
+        "id": "o3",
+        "text": "Helps administrators troubleshoot a prevention policy/setting not being applied on a host"
+      },
+      {
+        "id": "o4",
+        "text": "Shows you the hosts that are in a specific prevention policy"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q058",
+    "prompt": "How many hosts can you add to a static group at once?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "50"
+      },
+      {
+        "id": "o2",
+        "text": "Unlimited"
+      },
+      {
+        "id": "o3",
+        "text": "500"
+      },
+      {
+        "id": "o4",
+        "text": "1000"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "Refer to \"Host and Host Group Management\" in the documentation.",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q059",
+    "prompt": "Up to how many hosts can you delete/hide at once?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Unlimited"
+      },
+      {
+        "id": "o2",
+        "text": "300"
+      },
+      {
+        "id": "o3",
+        "text": "100"
+      },
+      {
+        "id": "o4",
+        "text": "200"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "Refer to \"Host and Host Group Management\" in the documentation.",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q060",
+    "prompt": "Where do you find the number of files that would have been blocked based upon the level of Machine Learning Prevention settings (Cautious, Moderate, or Aggressive)?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Prevention Policy Confidence Dashboard"
+      },
+      {
+        "id": "o2",
+        "text": "Investigate > Event Search > Audit > Machine-Learning Prevention Monitoring"
+      },
+      {
+        "id": "o3",
+        "text": "Prevention Policy Debug"
+      },
+      {
+        "id": "o4",
+        "text": "Audit logs > Audit logs > Machine-learning prevention monitoring"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "This is very useful in case you need to increase the aggresivness on your prevention policy to see if any legitimate application would be blocked if the level is increased.",
+    "source": "CCFA_Test_Exam_2"
+  },
+  {
+    "id": "q061",
+    "prompt": "How are Machine Learning exclusions applied to hosts?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "By prevention policy"
+      },
+      {
+        "id": "o2",
+        "text": "By selecting all hosts or groups of hosts to target"
+      },
+      {
+        "id": "o3",
+        "text": "By selecting each host individually"
+      },
+      {
+        "id": "o4",
+        "text": "By selecting host groups but not all hosts."
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "Try creating one ML exclusion to see that those are the only to options. Create a new host group if a machine or a group of machines need an exclusions to not apply the exclusion to all hosts. Every exclusion is a path where crowdstrike does not have visibility to know if there is anything malicious going on.",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q062",
+    "prompt": "Which of the following is not an option when selecting a notifcation for Workflow (Falcon Fusion) actions?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Microsoft Teams Notification"
+      },
+      {
+        "id": "o2",
+        "text": "Slack Notification"
+      },
+      {
+        "id": "o3",
+        "text": "PagerDuty Notification"
+      },
+      {
+        "id": "o4",
+        "text": "Host pop-up notification"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "The integrations need to be setup first for you to see them as options in the workflows with the recent changes CS made, but its important to know this because you need to send alerts to your analysts and teams, slack, serviceNow, pagerduty are great options but pop-ups is not available. Refer to Workflows (Falcon Fusion) > Understand Fusion workflows in the documentation.",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q063",
+    "prompt": "What is a containment policy used for?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "To allow IP addresses over which your hosts will be allowed to communicate, even if a host is contained."
+      },
+      {
+        "id": "o2",
+        "text": "Its where you add your firewall addresses to allow your sensors to connect to the cloud when deploying the CS sensor."
+      },
+      {
+        "id": "o3",
+        "text": "This is where you can setup conditions to contain a host if it does not meet compliance settings"
+      },
+      {
+        "id": "o4",
+        "text": "It is a blocklist where you can add malicious IP addresses"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "Refer to Real Time Response and Network Containment > Configuring your containment policy in the documentation.",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q064",
+    "prompt": "How do you change your own password in the Falcon console?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Click user icon > Click your name > User Profile Settings > Change password > Click the link found on the email sent from Crowdstrike > Input New Password"
+      },
+      {
+        "id": "o2",
+        "text": "User Management > Find your account > Click 3 dots > Reset Password > On the pop-up window, input your new password"
+      },
+      {
+        "id": "o3",
+        "text": "Click user icon > Click your name > In user profile click change password > input your current and new password"
+      },
+      {
+        "id": "o4",
+        "text": "Click user icon > Click your name > User Profile > Find your user > 3 dots > Reset Password > Input New Password"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "You could also find your user in User management > Click 3 dots > reset password.",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q065",
+    "prompt": "Where can you see if a workflow failed to execute?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Fusion Workflows > Execution Audit"
+      },
+      {
+        "id": "o2",
+        "text": "Fusion Workflows > Execution Log"
+      },
+      {
+        "id": "o3",
+        "text": "Fusion Workflows > All workflows > Workflows Audit"
+      },
+      {
+        "id": "o4",
+        "text": "Fusion Workflows > Audit Logs"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "Refer to Workflows (Falcon Fusion) > Monitor workflow executions",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q066",
+    "prompt": "Which type of sensor event is sent periodically to the cloud with configuration and sensor health information?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Lfodownloadconfirmation"
+      },
+      {
+        "id": "o2",
+        "text": "Process Rollup"
+      },
+      {
+        "id": "o3",
+        "text": "Falcon Signal"
+      },
+      {
+        "id": "o4",
+        "text": "SensorHeartbeat"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "A host becomes inactive when its sensor doesn\u2019t send a heartbeat back to the cloud for two minutes. Inactive hosts are identified by their Last Seen time. Hosts that are inactive for more the 45 days are removed from the Host Management and Trash pages.",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q067",
+    "prompt": "What role do you need to create and edit workflows?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Workflow Author"
+      },
+      {
+        "id": "o2",
+        "text": "Workflow Administrator"
+      },
+      {
+        "id": "o3",
+        "text": "Falcon Security Lead"
+      },
+      {
+        "id": "o4",
+        "text": "Workflow Manager"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "Refer to Workflows (Falcon Fusion) > These roles can view Workflows pages and create and edit workflows section.",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q068",
+    "prompt": "Implementing a new custom IOA to trigger detections on your hosts involves following steps:",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Create rule group, add the custom IOA rule to the rule group, enable the rule and rule group, Assign the rule group to a prevention policy"
+      },
+      {
+        "id": "o2",
+        "text": "Create rule group, add the custom IOA rule to the rule group, Assign the rule group to a prevention policy"
+      },
+      {
+        "id": "o3",
+        "text": "Create rule group, add the custom IOA rule to the rule group, enable the rule and rule group, Assign the rule group to a host group"
+      },
+      {
+        "id": "o4",
+        "text": "Create rule group, add the custom IOA rule to the rule group, enable the rule and rule group, Assign the rule group to a sensor update policy"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "The rule group and custom rules need to be enabled before they are enforced.",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q069",
+    "prompt": "Which of the following Custom I0A rule types are supported by Windows, macOS, and Linux OS",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Process creation and file creation"
+      },
+      {
+        "id": "o2",
+        "text": "Network connection, Domain Name, File Creation, and Process creation"
+      },
+      {
+        "id": "o3",
+        "text": "Process creation"
+      },
+      {
+        "id": "o4",
+        "text": "Network connection, File Creation, Process creation"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "For Linux, you can only do process and file creation in your IOA. Since the other two are not supported on Linux, process and file creation is the right answer.",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q070",
+    "prompt": "Which feature of CrowdStrike Falcon is used to detect and prevent fileless malware attacks?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Artificial Intelligence"
+      },
+      {
+        "id": "o2",
+        "text": "Machine Learning"
+      },
+      {
+        "id": "o3",
+        "text": "Indicator of Attack (IOA)"
+      },
+      {
+        "id": "o4",
+        "text": "Behavioral Engine"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "Falcon uses Indicator of attack rules in the backend to detect and prevent suspicious behavior along with fileless attacks such as malicious powershell commands ran.",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q071",
+    "prompt": "What model are workflows built?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Trigger, Condition, and Notification"
+      },
+      {
+        "id": "o2",
+        "text": "Trigger, sequence, and Action"
+      },
+      {
+        "id": "o3",
+        "text": "Trigger, Condition, and Action"
+      },
+      {
+        "id": "o4",
+        "text": "Statement, Condition, and Action"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "Refer to Workflows (Falcon Fusion) > Understand Fusion workflows in the documentation.",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q072",
+    "prompt": "If a host’s sensor is not assigned a host group assignment, what sensor update policy will it receive?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "The default policy"
+      },
+      {
+        "id": "o2",
+        "text": "No policy is applied."
+      },
+      {
+        "id": "o3",
+        "text": "The policy with highest precedence (1)"
+      },
+      {
+        "id": "o4",
+        "text": "Auto-Latest"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "Refer to Sensor Update Policies > \"Note: The default policy is assigned to any device\" in the documentation. Assign host groups to the hosts in the default policy. This policy should remain empty. Maybe these are new devices that a dynamic host group did not match those hosts. Assign them in their right group if you see any on there.",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q073",
+    "prompt": "To provide troubleshooting info for sensor issues to support, what tool can be used?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "FalconWinDiag"
+      },
+      {
+        "id": "o2",
+        "text": "CSWinDiag"
+      },
+      {
+        "id": "o3",
+        "text": "CSWinDiagnostics"
+      },
+      {
+        "id": "o4",
+        "text": "SCWinDiag"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "Refer to Sensor falcon for windows > Providing troubleshooting info to Support in the documentation",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q074",
+    "prompt": "Where do you disable detections for a host?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Host group>Add Host>Check disable detections"
+      },
+      {
+        "id": "o2",
+        "text": "Host management >Select host> Host detail panel appears > click disable detections"
+      },
+      {
+        "id": "o3",
+        "text": "Add the host to a prevention policy where the NGAV sliders are set to Cautious"
+      },
+      {
+        "id": "o4",
+        "text": "Host Management>Select host>Actions Button>Disable sensor"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "This is where you can contain the host and see the status of the sensor (Online, Inactive, Unknown).",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q075",
+    "prompt": "Where can you see who created or edited a workflow?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Fusion Workflows > Execution Log"
+      },
+      {
+        "id": "o2",
+        "text": "Audit Logs > Fusion Workflows > Audit Logs"
+      },
+      {
+        "id": "o3",
+        "text": "Fusion Workflows > Audit Logs"
+      },
+      {
+        "id": "o4",
+        "text": "Audit Logs > Fusion Workflow > Activity Dashboard"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "You can find the execution and audit logs in Fusion Workflows > Fusion Workflows > ...",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q076",
+    "prompt": "Including the default policy, what is the total number of prevention policies you can have?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "100"
+      },
+      {
+        "id": "o2",
+        "text": "200"
+      },
+      {
+        "id": "o3",
+        "text": "50"
+      },
+      {
+        "id": "o4",
+        "text": "Unlimited"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "Refer to Detection and Prevention Policies > Prevention policies in the documentation",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q077",
+    "prompt": "How are Inactive hosts in Host Setup and Management > Inactive Sensors identified?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Offline Since"
+      },
+      {
+        "id": "o2",
+        "text": "Last seen date and time"
+      },
+      {
+        "id": "o3",
+        "text": "Last Active"
+      },
+      {
+        "id": "o4",
+        "text": "Last Seen"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "Go to the dashboard to see that is by Last seen displaying date and time. If you try last seen in host setup and management does not work. You need to use Inactive since and choose the days you are interested on. If I want to see inactive host that have not checked in for 30 days, in host management I can do Inactive since:30 days ago. Just a little tip.",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q078",
+    "prompt": "Where can you see if a Mac was properly setup giving Crowdstrike Full Disk Access?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Host Setup and Management > Manage Endpoints > Zero Trust Assessment"
+      },
+      {
+        "id": "o2",
+        "text": "Host Setup and Management > Host Management"
+      },
+      {
+        "id": "o3",
+        "text": "There is not a way to see if this was set up. Only in the physical machine"
+      },
+      {
+        "id": "o4",
+        "text": "Dashboards and Reports > Executive Summary"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "Crowdstrike support told me there was not a way, but another CS representative showed me the Zero Trust Dashboard. Once on the dashboard, filter by platform and select Mac. Scroll down to Assessment by host and when you click on a host, a new section appears with different assessment. Look for \"CrowdStrike Full Disk Access\" and if it says no on the \"meets requirement\" section, you need to have the user add CS to privacy & settings > Full disk access > Plus button > Select the falcon app. CS needs this to fully protect the MacOS device.",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q079",
+    "prompt": "What happens when you disable detections for a host?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Past detections are deleted, even when detections are enabled again."
+      },
+      {
+        "id": "o2",
+        "text": "You cannot disable detections on a host unless you set prevention policy sliders in Cautious mode."
+      },
+      {
+        "id": "o3",
+        "text": "The detections for that host are removed from the console immediately. No new detections display in the console going forward unless detections are enabled."
+      },
+      {
+        "id": "o4",
+        "text": "You have 24hrs until detections are enabled again"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "Refer to Host and Host Group Management > When a user disables detections in the documentation",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q080",
+    "prompt": "Which of the following is true regarding NGAV?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Falcon NGAV is not a replacement for Windows Defender or other antivirus programs"
+      },
+      {
+        "id": "o2",
+        "text": "Falcon NGAV relies on signature-based detections"
+      },
+      {
+        "id": "o3",
+        "text": "Activating Falcon NGAV will also enable all detection and prevention settings in the entire policy"
+      },
+      {
+        "id": "o4",
+        "text": "The detection slider cannot be set to a setting less aggressive than the prevention slider"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "Go try doing it in a custom prevention policy!",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q081",
+    "prompt": "How many auto assignment options are there for sensor update policies?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "3"
+      },
+      {
+        "id": "o2",
+        "text": "2"
+      },
+      {
+        "id": "o3",
+        "text": "4"
+      },
+      {
+        "id": "o4",
+        "text": "1"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "You have Auto-Latest, Auto-N1, and Auto-N2",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q082",
+    "prompt": "Falcon Sensor uses certificate pinning to defend against man-in-the-middle attacks. Some network configurations that use _____ can interfere with certificate validation.",
+    "options": [
+      {
+        "id": "o1",
+        "text": "TCP/IP inspection"
+      },
+      {
+        "id": "o2",
+        "text": "Deep packet inspection"
+      },
+      {
+        "id": "o3",
+        "text": "VPN"
+      },
+      {
+        "id": "o4",
+        "text": "DHCP"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "Also called HTTPS interception, TLS interception, or SSL inspection",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q083",
+    "prompt": "Where do you set up automated detection emails?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Click on user icon top right > Click your name > Manage list for detection and incident emails"
+      },
+      {
+        "id": "o2",
+        "text": "Support and Resources > General Settings > Manage list for detection and incident emails"
+      },
+      {
+        "id": "o3",
+        "text": "Support and Resources > Notifications > Manage list for detection and incident emails"
+      },
+      {
+        "id": "o4",
+        "text": "Add your email on the prevention policies"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "Any emails put in here will get medium severity detections and incidents over 1.0. You should create two workflows, one for detections (EPP Detection) and one for incidents and with an action to notify your SOC.",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q084",
+    "prompt": "Sensor Update Policies needs to be setup for each OS (windows, Mac, Linux) because…",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Sensor Update policies are dependent of the OS"
+      },
+      {
+        "id": "o2",
+        "text": "You just need to create one sensor update policy and gets applied to all Operating Systems."
+      },
+      {
+        "id": "o3",
+        "text": "Windows and MacOS share the same sensor update policy. Linux needs its own policy"
+      },
+      {
+        "id": "o4",
+        "text": "Sensor Update policies are NOT dependent of the OS."
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "An os sensor version could be different than the rest. Sensor Update Policies should set based on OS.",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q085",
+    "prompt": "How are user permissions set in Falcon?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Permissions are token-based. Users request access to a defined set of permissions and an administrator adds their token to the set of permissions"
+      },
+      {
+        "id": "o2",
+        "text": "Pre-defined permissions are assigned to sets called roles. Users can be assigned multiple roles based on job function and they assume a cumulative set of permissions based on those assignments"
+      },
+      {
+        "id": "o3",
+        "text": "An administrator selects individual granular permissions from the Falcon Permissions List during user creation"
+      },
+      {
+        "id": "o4",
+        "text": "Permissions are assigned to a User Group and then users are assigned to that group, thereby inheriting those permissions"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q086",
+    "prompt": "If your sensor requires more time to connect to the Crowdstrike cloud during installation, what parameter can you use?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "ProvTimeWait=360000"
+      },
+      {
+        "id": "o2",
+        "text": "ProvNoWait=1"
+      },
+      {
+        "id": "o3",
+        "text": "Provision=3600000"
+      },
+      {
+        "id": "o4",
+        "text": "NO_START=1"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "Refer to Falcon Sensor for Windows > Allow the installer more provisioning time with the ProvNoWait parameter in the documentation.",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q087",
+    "prompt": "When viewing the prevention policy attached to the host, what is not a valid value in the prevention policy column?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "{Policy Name} & \"Changes pending\""
+      },
+      {
+        "id": "o2",
+        "text": "Invalid Policy"
+      },
+      {
+        "id": "o3",
+        "text": "{Policy Name} & \"{Applied Date}\""
+      },
+      {
+        "id": "o4",
+        "text": "\"No Policy\""
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q088",
+    "prompt": "If a user wanted to install an older version of the Falcon sensor, how would they find the older installer file?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Host Setup and Management > Deploy > Sensor Downloads Legacy"
+      },
+      {
+        "id": "o2",
+        "text": "Host Setup and Management > Deploy > Sensor Older Downloads"
+      },
+      {
+        "id": "o3",
+        "text": "Support and Resources > Resources Tools > Tool Downloads"
+      },
+      {
+        "id": "o4",
+        "text": "By clicking one of the \"Older Versions\" link in the Sensor Downloads page"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "You can revert a sensor to a previous version, but only to a version released in the last 180 days.",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q089",
+    "prompt": "During CS sensor installation, what command line flag/parameter do you need if you use a proxy?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "PACURL=<Pac file URL>"
+      },
+      {
+        "id": "o2",
+        "text": "NO_START=1"
+      },
+      {
+        "id": "o3",
+        "text": "PROXY_APP="
+      },
+      {
+        "id": "o4",
+        "text": "PROXY="
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "Cannot be used with the APP_PROXYNAME and APP_PROXYPORTparameters. Refer to \"Falcon Sensor for Windows\" > \"Proxy parameters.\"",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q090",
+    "prompt": "Which feature of the CrowdStrike Falcon platform allows administrators to proactively detect and respond to potential threats by creating custom rules based on specific conditions?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Prevention IOC"
+      },
+      {
+        "id": "o2",
+        "text": "Custom Indicator of Compromise"
+      },
+      {
+        "id": "o3",
+        "text": "Custom IOAs"
+      },
+      {
+        "id": "o4",
+        "text": "Falcon Watchlists"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_3"
+  },
+  {
+    "id": "q091",
+    "prompt": "Which of the following uses Regex?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Custom IOA and Sensor Visibility Exclusions"
+      },
+      {
+        "id": "o2",
+        "text": "Custom IOA and IOA Exclusions"
+      },
+      {
+        "id": "o3",
+        "text": "Custom IOA and IOC Management"
+      },
+      {
+        "id": "o4",
+        "text": "Custom IOA and Machine Learning Exclusions"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q092",
+    "prompt": "Which statement best describes what is recommended for the Default Sensor Update policy?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Since the Default Sensor Update policy is pre-configured with recommend settings out of the box, configuration of the Default Sensor Update policy is not required"
+      },
+      {
+        "id": "o2",
+        "text": "No configuration is required. Once a Custom Sensor Update policy is created the Default Sensor Update policy is disabled"
+      },
+      {
+        "id": "o3",
+        "text": "The Default Sensor Update should be configured to always automatically upgrade to the latest sensor version"
+      },
+      {
+        "id": "o4",
+        "text": "The Default Sensor Update policy should align to an organization's overall sensor updating practice while leveraging Auto N-1 and Auto N-2 configurations where possible"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "Every latest sensor version should be tested first since some may introduce some interoperability issues. N-1 will always be best policy to put in place.",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q093",
+    "prompt": "When adding an installation token, what is one thing that you do not need to specify?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Time interval to check if its still a valid token"
+      },
+      {
+        "id": "o2",
+        "text": "Name"
+      },
+      {
+        "id": "o3",
+        "text": "Expiration"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "The token is just checked at the time of installation. Only name and expiration is required.",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q094",
+    "prompt": "How often are installation tokens checked?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "At a customized time interval specified by the administrator"
+      },
+      {
+        "id": "o2",
+        "text": "Only when the sensor is installed"
+      },
+      {
+        "id": "o3",
+        "text": "Every time a client is restarted, or the CrowdStrike service restarts"
+      },
+      {
+        "id": "o4",
+        "text": "Daily, to ensure all tokens are still valid"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "Refer to Host and Host Group Management > How tokens work in the documentation",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q095",
+    "prompt": "What would be the most appropriate action to take if you wanted to prevent a folder from being uploaded to the cloud without disabling uploads globally?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Sensor Visibility exclusion"
+      },
+      {
+        "id": "o2",
+        "text": "A Custom IOC entry"
+      },
+      {
+        "id": "o3",
+        "text": "An IOA exclusion"
+      },
+      {
+        "id": "o4",
+        "text": "Machine Learning exclusion"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "When you create a ML exclusion, it gives you the option to exclude the file path from detections, but also from \"Uploads to Crowdstrike.\" Give it a try!",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q096",
+    "prompt": "How can you leave the activity dashboard (any dashboard) on for hours on a screen without getting logged out?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Left pane of dashboard > Settings > Display > stay signed in"
+      },
+      {
+        "id": "o2",
+        "text": "General Settings > increase idle time"
+      },
+      {
+        "id": "o3",
+        "text": "Not possible. Crowdstrike will go idle and log you out."
+      },
+      {
+        "id": "o4",
+        "text": "General Settings > toggle off session timeout."
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q097",
+    "prompt": "Once an exclusion is saved, what can be edited in the future?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "All parts of the exclusion can be changed"
+      },
+      {
+        "id": "o2",
+        "text": "The exclusion pattern cannot be changed"
+      },
+      {
+        "id": "o3",
+        "text": "Only the options to \"Detect/Block\" and/or \"File Extraction\" can be changed"
+      },
+      {
+        "id": "o4",
+        "text": "Only the selected groups and hosts to which the exclusion is applied can be changed"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q098",
+    "prompt": "What type of information is found in the Linux Sensors Dashboard?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Versions running, Directory Made Invisible to Spotlight, Logging/Auditing Referenced, Viewed, or Modified"
+      },
+      {
+        "id": "o2",
+        "text": "Private Information Accessed, Archiving Tools ?Exfil, Files Made Executable"
+      },
+      {
+        "id": "o3",
+        "text": "Hidden File execution, Execution of file from the trash, Versions Running with Computer Names"
+      },
+      {
+        "id": "o4",
+        "text": "Hosts by Kernel Version, Shells spawned by Root, Wget/Curl Usage"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "Go to Investigate > Hunt > Linux Sensors.",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q099",
+    "prompt": "Within what time frame can revoked tokens be restored?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "1 day"
+      },
+      {
+        "id": "o2",
+        "text": "You cannot restore a token"
+      },
+      {
+        "id": "o3",
+        "text": "30 days"
+      },
+      {
+        "id": "o4",
+        "text": "7 days"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "When you revoke a token, it can\u2019t be used in sensor installations. Revoked tokens can be restored within 7 days, but after that, they\u2019re automatically deleted. Revoking tokens only affects future installations, not existing hosts.",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q100",
+    "prompt": "You have determined that you have numerous Machine Learning detections in your environment that are false positives. They are caused by a single binary that was custom written by a vendor for you and that binary is running on many endpoints. What is the best way to whitelist this?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Created a IOA exclusion using the hash of the binary"
+      },
+      {
+        "id": "o2",
+        "text": "Create ML exclusion for the whole folder where this executable is located"
+      },
+      {
+        "id": "o3",
+        "text": "Create a Sensor Visibility Exclusion of the path where the file is located"
+      },
+      {
+        "id": "o4",
+        "text": "IOC management > Add hash of the binary and set the action to Allow"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "Since the hash is the common denominator in all machines, whitelist the hash of the binary file. You could do a ML exclusion but the question does not mention you know the file path and if they are all the same.",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q101",
+    "prompt": "What impact does disabling detections on a host have on an API?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "DetectionSummaryEvent stops sending to the Streaming API for that host"
+      },
+      {
+        "id": "o2",
+        "text": "The Event Streams stop sending any data related to that host"
+      },
+      {
+        "id": "o3",
+        "text": "The EventStreams stops sending data to the API for that host"
+      },
+      {
+        "id": "o4",
+        "text": "IncidentSummaryEvent stops sending to the Streaming API for that host"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "Refer to Host and Host Group Management > When a user disables detections in the documentation",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q102",
+    "prompt": "When you get a file via Real Time Response, what is the default password you need to enter to open the file in a sandbox?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Password is not required"
+      },
+      {
+        "id": "o2",
+        "text": "malware"
+      },
+      {
+        "id": "o3",
+        "text": "Crowdstrike"
+      },
+      {
+        "id": "o4",
+        "text": "infected"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "Refer to Real Time Response and Network Containment > Open them with the password in the documentation.",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q103",
+    "prompt": "On which page of the Falcon console can one locate the Customer ID checksum to register sensors in our console?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Host Setup and Management > Deploy > Tool Downloads"
+      },
+      {
+        "id": "o2",
+        "text": "Host Setup and Management > Deploy > Checksum Customer ID"
+      },
+      {
+        "id": "o3",
+        "text": "Host Setup and Management > Deploy > Sensor Downloads"
+      },
+      {
+        "id": "o4",
+        "text": "You need to reach out to Support."
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "You need this CCID to register the sensor and for the sensor to get a unique Agent ID (AID). The customer ID (CID) is the number like this (0e76rt8769h7421t94d240932db6d20c). The Checksum Customer ID (CCID) forun on sensor downloads, is the same number but with two more integers or numbers like this (0e76rt8769h7421t94d240932db6d20c-CD).",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q104",
+    "prompt": "All .exe files on directory C:\Program Files (x86)\DevApp\developer\ExecApp\2.5\ are being blocked by Crowdstrike. The folder version 2.5 will constantly change as more releases occur. What ML exclusion can you do to cover all .exe files and future version variations?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Program Files (x86)\\DevApp\\developer\\ExecApp\\*\\*.exe"
+      },
+      {
+        "id": "o2",
+        "text": "**\\Program Files (x86)\\DevApp\\developer\\ExecApp\\*\\*"
+      },
+      {
+        "id": "o3",
+        "text": "C:\\Program Files*\\DevApp\\developer\\ExecApp\\**"
+      },
+      {
+        "id": "o4",
+        "text": "Program Files (x86)\\DevApp\\developer\\ExecApp\\2.*\\**"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "You should not start an exclusion with the drive letter. Double ** allows more than you have to. Refer to Glob Syntax > Platform-specific glob examples in the documentation.",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q105",
+    "prompt": "What is the name of the unique identifier that is assigned to each agent/host?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Falcon ID"
+      },
+      {
+        "id": "o2",
+        "text": "PID"
+      },
+      {
+        "id": "o3",
+        "text": "HID"
+      },
+      {
+        "id": "o4",
+        "text": "AID"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "Agent ID",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q106",
+    "prompt": "What happens when you enable detections on a host that had detections disabled?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Detections will appear in Event Search. Detections will be available for the period of time when detections were disabled."
+      },
+      {
+        "id": "o2",
+        "text": "New detections will start appearing in the console immediately. Previous detections will not be restored to the console for that host."
+      },
+      {
+        "id": "o3",
+        "text": "New detections will start appearing in the console in the next hour. Previous detections will be restored to the console for that host."
+      },
+      {
+        "id": "o4",
+        "text": "Detections cannot be disabled on a host. Only in the prevention policy."
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "Refer to Host and Host Group Management > When a user enables detections in the documentation",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q107",
+    "prompt": "What is the Audit Logs > Audit Logs > RTR report used for?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "See what commands were used, and what files were retrieved in a RTR session"
+      },
+      {
+        "id": "o2",
+        "text": "Lets you see who created the RTR policy and any changes"
+      },
+      {
+        "id": "o3",
+        "text": "To see the Real Time Retention logs to see for how long your logs are retained."
+      },
+      {
+        "id": "o4",
+        "text": "Lets you see what retention policy is applied to hosts and when"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "You will see each command used and files retrieved. Retrieved files are available for 7 days.",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q108",
+    "prompt": "A host is considered inactive when the Crowdstrike Cloud does not receive a heartbeat within what time frame?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "40 minutes"
+      },
+      {
+        "id": "o2",
+        "text": "5 Minutes"
+      },
+      {
+        "id": "o3",
+        "text": "10 minutes"
+      },
+      {
+        "id": "o4",
+        "text": "2 minutes"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "Refer to Host and Host Group Management > Deleting a host in the documenation.",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q109",
+    "prompt": "When is RFM most common?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Falcon console updates are pending"
+      },
+      {
+        "id": "o2",
+        "text": "Notifications have been disabled on that host sensor"
+      },
+      {
+        "id": "o3",
+        "text": "During Windows updates"
+      },
+      {
+        "id": "o4",
+        "text": "Falcon sensors installing an update"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "Refer to Falcon Sensor for Windows Deployment > Reduced functionality mode: Windows hosts in the documentation.",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q110",
+    "prompt": "Which command lets you execute a FALCON script (Not a Custom Script)?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "runscript"
+      },
+      {
+        "id": "o2",
+        "text": "runfalconscript"
+      },
+      {
+        "id": "o3",
+        "text": "falconscript"
+      },
+      {
+        "id": "o4",
+        "text": "cloudfile"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "Refer to Real Time Response and Network Containment > Running scripts from the Run Commands tab. runscript is for custom scripts.",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q111",
+    "prompt": "Which custom IOA pattern is best to block all subdomains of badsite.com?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "*\\.badsite\\.com|badsite\\.com"
+      },
+      {
+        "id": "o2",
+        "text": "**badsite\\.com|badsite\\.com**"
+      },
+      {
+        "id": "o3",
+        "text": "Custom IOA rules cannot be created for domains"
+      },
+      {
+        "id": "o4",
+        "text": "*badsite\\.com|badsite\\.com.*"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "The syntax that would be best for detecting or preventing on all subdomains as well is *.badsite.com|badsite. com. This syntax will match any domain that ends with .badsite.com or is exactly badsite.com. The * wildcard will match any characters before the dot, and the | operator will match either side of the expression.",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q112",
+    "prompt": "You need to quickly understand all detections by Tactic over the last 30 days. What dashboard can best provide this information?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Endpoint security > Monitor > Crowdscore Detections"
+      },
+      {
+        "id": "o2",
+        "text": "Host Setup and Management > Manage Endpoints > Detection Coverage Lookup"
+      },
+      {
+        "id": "o3",
+        "text": "Endpoint security > Monitor > Activity dashboard"
+      },
+      {
+        "id": "o4",
+        "text": "Dashboards and Reports > Reports > Executive Summary"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q113",
+    "prompt": "By default, all times in a detection are normalized to your local time based on machine settings. How can you change this to UTC?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "User Management > three dots on your user > Set time > Select Time"
+      },
+      {
+        "id": "o2",
+        "text": "You cannot change the timezone"
+      },
+      {
+        "id": "o3",
+        "text": "Audit Logs > Time"
+      },
+      {
+        "id": "o4",
+        "text": "Click user icon (Top Right) > Click your name > User Profile > Select Timezone"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q114",
+    "prompt": "What is the file path where quarantined files are stored on a windows machine?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "\\Windows\\System32\\Drivers\\CrowdStrike\\Quarantine"
+      },
+      {
+        "id": "o2",
+        "text": "\\Windows\\System32\\CrowdStrike\\Quarantined"
+      },
+      {
+        "id": "o3",
+        "text": "\\Program Files (x86)\\Crowdstrike\\Quarantine\\infected"
+      },
+      {
+        "id": "o4",
+        "text": "\\ProgramData\\System32\\CrowdStrike\\Quarantine"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "Refer to Detection and Prevention Policies > About quarantine in the documentation",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q115",
+    "prompt": "Which of the following is NOT a way to determine the sensor version installed on a specific endpoint?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "From a command line, run the sc query csagent -version command"
+      },
+      {
+        "id": "o2",
+        "text": "Use the Sensor Report to filter to the specific endpoint"
+      },
+      {
+        "id": "o3",
+        "text": "Use the Investigate > Host Search to filter to the specific endpoint"
+      },
+      {
+        "id": "o4",
+        "text": "Use Host Management to select the desired endpoint. The agent version will be listed in the columns and details"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "The sc query agent is only to verify if the sensor is running.",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q116",
+    "prompt": "Where can you download the CSWinDiag tool to gather logs to send to support?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Support and Resources > Resources and Tools > Developer Tools"
+      },
+      {
+        "id": "o2",
+        "text": "Host Setup and Management > Deploy > Tool Downloads"
+      },
+      {
+        "id": "o3",
+        "text": "Support and Resources > Resources and Tools > Tool Downloads"
+      },
+      {
+        "id": "o4",
+        "text": "Host Setup and Management > Deploy > Sensor Downloads"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q117",
+    "prompt": "How can you retrieve an API client secret from a previously created key?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "API Clients and Keys > API clients action log > Show secret"
+      },
+      {
+        "id": "o2",
+        "text": "API Clients and Keys > select three dots of the API wanted > Open details panel > Show Secret"
+      },
+      {
+        "id": "o3",
+        "text": "API Clients and Keys > select three dots of the API wanted > Show Secret"
+      },
+      {
+        "id": "o4",
+        "text": "The API client secret cannot be retrieved after it has been created"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "Once an API is created, you need to safe the secret in a safe location because once you click ok, it is gone. The only way to see it, is by reseting the secret API, but you will have to input the new one on the integration the last secret was used for.-API Clients and Keys > select three dots of the API wanted > Reset secret",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q118",
+    "prompt": "You want to harden the security of a few servers in a host group called Prod-Servers by disabling Real Time Response access to them. What setting need to be set in the Response policy of that host group?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Unckeck the Real Time Response box"
+      },
+      {
+        "id": "o2",
+        "text": "Disable the response policy"
+      },
+      {
+        "id": "o3",
+        "text": "Uncheck all available command boxes"
+      },
+      {
+        "id": "o4",
+        "text": "Remove the Falcon Administrator Role from all users"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q119",
+    "prompt": "What settings do you need to turn on Bulk Maintenance Mode in the Sensor Update Policy to have a single token to uninstall machines?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Any sensor version , Uninstall and maintenance protection OFF, Bulk maintenance mode ON"
+      },
+      {
+        "id": "o2",
+        "text": "Sensor version off, Uninstall and maintenance protection ON, Bulk maintenance mode OFF"
+      },
+      {
+        "id": "o3",
+        "text": "Sensor version off, Uninstall and maintenance protection ON, Bulk maintenance mode ON"
+      },
+      {
+        "id": "o4",
+        "text": "Sensor version off, Uninstall and maintenance protection OFF, Bulk maintenance mode ON"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "The toggle button for Bulk Maintenance Mode is grayed out and tells you that sensor version needs to be off and Uninstall and maintenance protection needs to be ON.",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q120",
+    "prompt": "When creating a Dynamic Host Group for all Workstations in an environment, what is the best method to ensure all workstation hosts are added to the group?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Type"
+      },
+      {
+        "id": "o2",
+        "text": "Platform"
+      },
+      {
+        "id": "o3",
+        "text": "OS Build"
+      },
+      {
+        "id": "o4",
+        "text": "Hostname"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "Type is best practice. Crowdstrike identifies Workstations, Domain controllers, and Servers with the Type filter. Create a Dynamic group for workstations and one where the rule logic has type for domain controllers and servers.",
+    "source": "CCFA_Test_Exam_4"
+  },
+  {
+    "id": "q121",
+    "prompt": "Which of the following features are not currently supported by the Falcon Container that are supported by hosts that have the kernel-based Falcon sensor for Linux installed?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Exclusions"
+      },
+      {
+        "id": "o2",
+        "text": "Network containment"
+      },
+      {
+        "id": "o3",
+        "text": "Sensor update policies"
+      },
+      {
+        "id": "o4",
+        "text": "None of the above x"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q122",
+    "prompt": "Which of the following is NOT available in the User Search in the Investigate App?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Logon Activities"
+      },
+      {
+        "id": "o2",
+        "text": "Process Executions"
+      },
+      {
+        "id": "o3",
+        "text": "Admin Tool Usage"
+      },
+      {
+        "id": "o4",
+        "text": "User IP History"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q123",
+    "prompt": "The Falcon sensor requires what network protocol to communicate with the CrowdStrike Cloud?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "TLS1.1"
+      },
+      {
+        "id": "o2",
+        "text": "HTTPS"
+      },
+      {
+        "id": "o3",
+        "text": "TLS1.2"
+      },
+      {
+        "id": "o4",
+        "text": "SSL"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "Network protocols The Falcon sensor requires TLS 1.2 to communicate with the CrowdStrike cloud. Other protocols, including SSL or earlier versions of TLS, are not supported. https://falcon.eu-1.crowdstrike.com/documentation/page/ecc97e75/falcon-sensor-for-windows-deployment",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q124",
+    "prompt": "What are the available methods for uninstalling a Falcon Sensor on a Windows Operating System?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Use msiexec"
+      },
+      {
+        "id": "o2",
+        "text": "Use the command line and the CSUninstallTool"
+      },
+      {
+        "id": "o3",
+        "text": "Use the Windows Control Panel"
+      },
+      {
+        "id": "o4",
+        "text": "Use the Host management page and the \"Uninstall host\" button"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "Uninstalling the Falcon sensor for Windows To uninstall a sensor, you can use the Control Panel or the command line. If uninstall protection is enabled, you must complete additional steps. See Uninstall protection on sensor version 5.10.9105 and later. https://falcon.eu-1.crowdstrike.com/documentation/page/ecc97e75/falcon-sensor-for-windows-deployment#rfbd8eb0",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q125",
+    "prompt": "Within what time frame can revoked tokens be restored?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Revoked tokens cannot be restored"
+      },
+      {
+        "id": "o2",
+        "text": "7 days"
+      },
+      {
+        "id": "o3",
+        "text": "30 days"
+      },
+      {
+        "id": "o4",
+        "text": "Never"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "Revoking installation tokens When you revoke a token, it can\u2019t be used in sensor installations. Revoked tokens can be restored within 7 days, but after that, they\u2019re automatically deleted. Revoking tokens only affects future installations, not existing hosts. https://falcon.eu-1.crowdstrike.com/documentation/page/f8a0f751/host-and-host-group-management#r5bd2729",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q126",
+    "prompt": "What is the max number of Falcon grouping tags that can be added per CID?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "50"
+      },
+      {
+        "id": "o2",
+        "text": "100"
+      },
+      {
+        "id": "o3",
+        "text": "10,000"
+      },
+      {
+        "id": "o4",
+        "text": "1,000"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "Adding Falcon grouping tags in bulk You can add tags to one or more hosts without having to open the host summary panel. There is a 237 character limit for a tag. You can add up to 50 tags per host and 1000 tags per CID. https://falcon.eu-1.crowdstrike.com/documentation/page/f8a0f751/host-and-host-group-management#h0070585",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q127",
+    "prompt": "What is the limit for adding hosts to a static group at one time?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "100"
+      },
+      {
+        "id": "o2",
+        "text": "10,000"
+      },
+      {
+        "id": "o3",
+        "text": "50"
+      },
+      {
+        "id": "o4",
+        "text": "1,000"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "Assign hosts to a static group As opposed to a dynamic group, you can assign hosts to a static group by selecting existing hosts in the console or by uploading a list of host IDs or hostnames. Whether you upload hosts by ID or name depends on the type of group created (Static by host ID or Static by hostname). When uploading hosts by hostname, Falcon checks that submitted hostnames match hosts that currently exist in the Falcon console. If you want to add hosts to a group before deploying sensors, you can disable validation. Note: You can assign up to 1,000 hosts to a static host group at a time. https://falcon.eu-1.crowdstrike.com/documentation/page/f8a0f751/host-and-host-group-management#t49b0286",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q128",
+    "prompt": "When would you execute this command “sc.exe query csagent” as an administrator?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "To check if a Falcon sensor is running on a Windows host"
+      },
+      {
+        "id": "o2",
+        "text": "To check if a Falcon sensor is running on a macOS host"
+      },
+      {
+        "id": "o3",
+        "text": "To check if a Falcon sensor is running on a Linux host"
+      },
+      {
+        "id": "o4",
+        "text": "To check if the prevention policy has synced down to a Windows host"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "Troubleshooting general sensor issues Verifying that the sensor is running To verify that the sensor is running on your host: Open a command prompt with administrative privileges on the host. Run this command: sc.exe query csagent https://falcon.eu-1.crowdstrike.com/documentation/page/ecc97e75/falcon-sensor-for-windows-deployment#ldfab9f",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q129",
+    "prompt": "Implementing a new custom IOA to trigger detections on your hosts involves following steps EXCEPT for:",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Enable the rule(s) and rule group x"
+      },
+      {
+        "id": "o2",
+        "text": "Create the Custom IOA rule group"
+      },
+      {
+        "id": "o3",
+        "text": "Add the Custom IOA rule to the rule group"
+      },
+      {
+        "id": "o4",
+        "text": "Assign the rule group to a Sensor Update policy"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "Implementation overview Assign custom IOA rule groups to prevention policies to see custom detections and preventions. Implementing a new custom IOA to trigger detections on your hosts involves four key steps: Create a rule group Add the custom IOA rule to the rule group Enable the rule and rule group Assign the rule group to a prevention policy  https://falcon.eu-1.crowdstrike.com/documentation/page/bd0f1c7f/detection-and-prevention-policies#gffab574",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q130",
+    "prompt": "What is a CID in Falcon?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "The CID is the cloud ID and is used for billing purposes"
+      },
+      {
+        "id": "o2",
+        "text": "The CID is the Computer Identifier and is the unique host ID given to a host during sensor deployment"
+      },
+      {
+        "id": "o3",
+        "text": "The CID is the unique Customer ID given to a Falcon instance. It is used with a checksum value during sensor deployment to register a new sensor."
+      },
+      {
+        "id": "o4",
+        "text": "The CID is the CrowdStrike ID. It is a legacy value and is no longer used."
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q131",
+    "prompt": "How many days does CrowdStrike keep detection data in the cloud?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "100"
+      },
+      {
+        "id": "o2",
+        "text": "Dependant on the customer's configuration"
+      },
+      {
+        "id": "o3",
+        "text": "45"
+      },
+      {
+        "id": "o4",
+        "text": "90"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "Note: The Platform filter reflects data from newly added fields; therefore, any detections that were generated before the new fields were added contain inaccurate platform information. After those detections in your CID reach their retention limit of 90 days, the Platform filter will show accurate information. During the 90-day transition period, you can get accurate platform information for endpoint and mobile detections that originate from CrowdStrike by filtering on the legacy Endpoint platform and Mobile platform filters. After the 90-day retention period ends, the Platform filter will provide accurate platform data for endpoint, mobile, and identity detections that originate from CrowdStrike. https://falcon.eu-1.crowdstrike.com/documentation/page/ke886083/unified-detections-monitoring#kf58d6d5",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q132",
+    "prompt": "What is the purpose of a sensor visibility exclusion?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "To remediate issues where the Falcon sensor may cause a performance or application compatibility interaction with your software by configuring the sensor to completely ignore a target path or process"
+      },
+      {
+        "id": "o2",
+        "text": "It is primarily used as an allow listing tool to suppress false positives"
+      },
+      {
+        "id": "o3",
+        "text": "To provide paths where traditional antivirus is already in place and monitoring processes on the host."
+      },
+      {
+        "id": "o4",
+        "text": "To reduce noise from detections which are not false positives but which you wish to ignore from a security perspective."
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "Create a sensor visibility exclusion to reduce performance issues in a trusted file path by stopping all sensor visibility for that path. https://falcon.eu-1.crowdstrike.com/configuration/exclusions/sensor-visibility",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q133",
+    "prompt": "Which of the following Custom IOA rule types are supported by Windows, macOS, and Linux OS",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Network Connection"
+      },
+      {
+        "id": "o2",
+        "text": "Domain Name"
+      },
+      {
+        "id": "o3",
+        "text": "File Creation"
+      },
+      {
+        "id": "o4",
+        "text": "Process Creation"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q134",
+    "prompt": "Which of the following Machine Learning exclusion patterns would exclude only the process located at C:\Folder1\Folder2\Sampleapp.exe ?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Folder1\\Folder2\\Sampleapp.exe x"
+      },
+      {
+        "id": "o2",
+        "text": "\\Device\\HarddiskVolume1\\folder1\\folder2\\sampleapp.exe"
+      },
+      {
+        "id": "o3",
+        "text": "folder1\\*\\sampleapp.exe"
+      },
+      {
+        "id": "o4",
+        "text": "**\\sampleapp.exe"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "Matches sampleapp.exe in the Folder2 folder within Folder1 folder. https://falcon.eu-1.crowdstrike.com/documentation/page/e2e4b1b4/glob-syntax",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q135",
+    "prompt": "Which feature of the CrowdStrike Falcon platform allows administrators to proactively detect and respond to potential threats by creating custom rules based on regular expression patterns?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Falcon Firewall"
+      },
+      {
+        "id": "o2",
+        "text": "Exposure Management"
+      },
+      {
+        "id": "o3",
+        "text": "Custom IOAs"
+      },
+      {
+        "id": "o4",
+        "text": "Custom IOCs"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "Individual custom IOA rules use a supported subset of regular expressions syntax to dictate what activity will trigger a custom IOA detection and whether or not the activity will also be blocked or killed.  https://falcon.eu-1.crowdstrike.com/documentation/page/bd0f1c7f/detection-and-prevention-policies#gffab574",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q136",
+    "prompt": "Which of the following is correct regarding Sensor Update Policies?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Sensor Update Policies can be used to disable the Falcon sensor"
+      },
+      {
+        "id": "o2",
+        "text": "Sensor Update Policies need to be setup for each platform OS (Windows, Mac, Linux)"
+      },
+      {
+        "id": "o3",
+        "text": "Sensor Update Policies are required to use the Falcon sensor"
+      },
+      {
+        "id": "o4",
+        "text": "Sensor Update Policies will only upgrade the Falcon sensor and never downgrade to an older version."
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "Set up sensor update policies to control the update process for sensors on all your hosts. No restart is required during these in-place updates. Each host is assigned to a sensor policy, based on its host group. There are separate sensor update policies for separate platforms (Windows, Mac, and Linux).  https://falcon.eu-1.crowdstrike.com/documentation/page/d2d629cf/sensor-update-policies#xa6322db",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q137",
+    "prompt": "By default, all times in a detection are normalized to your local time based on machine settings. How can you change this to UTC?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "When running an event query, use the eval command with the strftime function to convert it"
+      },
+      {
+        "id": "o2",
+        "text": "Contact your Falcon Administrator and they can change this setting"
+      },
+      {
+        "id": "o3",
+        "text": "Times are stored in the Falcon cloud and you need to contact support to make this change. It is global to your environment"
+      },
+      {
+        "id": "o4",
+        "text": "In your account profile in Falcon, you can set your time display preferences"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "Use the User preferences tab to complete these tasks:  Set timezone, date format, or locale  This timezone is used for detection information. By default, the Falcon console displays times in local browser time for all detections and other components that use a time\u2013with the exception of Event Search data, which uses UTC.  You can change the display language of the Falcon console. The Falcon console is fully available in English. We are continuously adding support for Japanese throughout the Falcon console.  https://falcon.eu-1.crowdstrike.com/documentation/page/d67c304b/falcon-console-user-guide#i9ce1ec4",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q138",
+    "prompt": "A Windows host has multiple AID values within Falcon. What does this mean?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "This means the system has rebooted and Falcon has restarted"
+      },
+      {
+        "id": "o2",
+        "text": "This means that Falcon has been installed more than once on the same system"
+      },
+      {
+        "id": "o3",
+        "text": "This means the host is using DHCP for an IP assignment and has obtained a new IP"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "Duplicate hosts typically appear when when sensor installations fail. After another installation attempt that is successful, the Hostname and Serial number values stay the same, but the Falcon sensor gets a new Host ID value. You can hide or delete the previous records so only the most recent, active hosts appear in the console.  https://falcon.eu-1.crowdstrike.com/documentation/page/f8a0f751/host-and-host-group-management#f2c710b4",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q139",
+    "prompt": "Which user role will allow a user to create and edit Workflows?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Falcon Security Analyst"
+      },
+      {
+        "id": "o2",
+        "text": "Workflow Author"
+      },
+      {
+        "id": "o3",
+        "text": "Falcon Security Lead"
+      },
+      {
+        "id": "o4",
+        "text": "Vulnerability Manager"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "Workflow Author: Create, duplicate, and edit workflows. Re-execute a failed workflow execution. This role doesn't grant basic Falcon console access. Users assigned this role must have at least one other role assigned to access the Falcon console. Users assigned this role can't include RTR actions in workflows or re-execute a failed workflow that contains RTR actions unless they are also assigned the Real Time Responder - Administrator role.  https://falcon.eu-1.crowdstrike.com/documentation/page/f20650df/default-roles-reference#bab555e5",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q140",
+    "prompt": "What is the limit for individual IP addresses and ranges that a firewall rule can contain?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "No limit"
+      },
+      {
+        "id": "o2",
+        "text": "100"
+      },
+      {
+        "id": "o3",
+        "text": "1,000"
+      },
+      {
+        "id": "o4",
+        "text": "100,000"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "Semicolons can be used to separate individual IP addresses and ranges (limited to 1,000 identified addresses)  https://falcon.eu-1.crowdstrike.com/documentation/page/a6e15696/falcon-firewall-management#m41a83a6",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q141",
+    "prompt": "When viewing the prevention policy attached to the host, what is not a valid value in the prevention policy column?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "\"{Policy Name}\" & \"Changes pending\""
+      },
+      {
+        "id": "o2",
+        "text": "\"Invalid Policy\""
+      },
+      {
+        "id": "o3",
+        "text": "\"No Policy\""
+      },
+      {
+        "id": "o4",
+        "text": "\"Policy Deleted\" & \"Changes pending\""
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q142",
+    "prompt": "Aside from an event search, where in Falcon do you find failed logon attempts?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Investigate > Hunt > Failed Logons"
+      },
+      {
+        "id": "o2",
+        "text": "Audit logs > Failed Logon Report"
+      },
+      {
+        "id": "o3",
+        "text": "Exposure Management > Failed Logins"
+      },
+      {
+        "id": "o4",
+        "text": "Investigate > Search > Events"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q143",
+    "prompt": "Which of the following installation flags is important when installing a Windows sensor on hosts using IE proxy detection?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "/passive flag"
+      },
+      {
+        "id": "o2",
+        "text": "ProvNoWait flag"
+      },
+      {
+        "id": "o3",
+        "text": "VDI flag"
+      },
+      {
+        "id": "o4",
+        "text": "NO_START flag"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "ProvNoWait=1 The sensor does not abort installation if it can't connect to the CrowdStrike cloud within 20 minutes (10 minutes, in Falcon sensor version 6.21 and earlier). (By default, if the host can't contact our cloud, it will retry the connection for 20 minutes. After that, the host will automatically uninstall its sensor.)   Use this parameter when upgrading to version 3.5 or later if you use IE proxy detection for Falcon, because proxy data will not be available until another user logs into the host.  https://falcon.eu-1.crowdstrike.com/documentation/page/ecc97e75/falcon-sensor-for-windows-deployment#kd6a4efb",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q144",
+    "prompt": "Which type of sensor event is sent periodically to the cloud with configuration and sensor health information?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "PEFileWritten"
+      },
+      {
+        "id": "o2",
+        "text": "ProcessRollup"
+      },
+      {
+        "id": "o3",
+        "text": "SensorHeartbeat"
+      },
+      {
+        "id": "o4",
+        "text": "LFODownloadConfirmation"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q145",
+    "prompt": "What is the max number of Falcon grouping tags that can be added per host?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "50"
+      },
+      {
+        "id": "o2",
+        "text": "1,000"
+      },
+      {
+        "id": "o3",
+        "text": "No limit"
+      },
+      {
+        "id": "o4",
+        "text": "10,000"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "You can manage Falcon grouping tags for hosts individually or in bulk using the Falcon console. These tags are shown with the prefix FalconGroupingTags. You don\u2019t need to specify this prefix when creating tags as Falcon adds it automatically.  There is a 237 character limit for a tag. You can add up to 50 tags per host and 1000 tags per CID.  You can\u2019t manage these tags on the sensor using the CLI or using an MDM.  You can\u2019t use these tags with sensor images or templates.  https://falcon.eu-1.crowdstrike.com/documentation/page/f8a0f751/host-and-host-group-management#h0070585",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q146",
+    "prompt": "Where can you locate a list of macOS hosts that are in Reduced Functionality Mode (RFM)?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Investigate > RFM hosts > macOS"
+      },
+      {
+        "id": "o2",
+        "text": "RFM doesn't apply to macOS hosts"
+      },
+      {
+        "id": "o3",
+        "text": "Host management dashboard"
+      },
+      {
+        "id": "o4",
+        "text": "In Investigate by running query - #event_simpleName=SensorHeartbeat event_platform=Win SensorStateBitMap_decimal=2"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q147",
+    "prompt": "What is a required field when creating users?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Initial Password"
+      },
+      {
+        "id": "o2",
+        "text": "Authentication code"
+      },
+      {
+        "id": "o3",
+        "text": "Phone Number"
+      },
+      {
+        "id": "o4",
+        "text": "User Email"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "Unique email address A user account is identified by its email address. When adding a new user account, the email address must be unique, it cannot be used by another user or added in another CID.  https://falcon.eu-1.crowdstrike.com/documentation/page/c31605ec/user-management#p6eaf587",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q148",
+    "prompt": "To provide troubleshooting info for sensor issues to support, what tool can be used?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Help.exe"
+      },
+      {
+        "id": "o2",
+        "text": "CSWinDiag"
+      },
+      {
+        "id": "o3",
+        "text": "WindowsSensor.exe /Diag"
+      },
+      {
+        "id": "o4",
+        "text": "CsUninstallTool"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "Providing troubleshooting info to Support Providing CSWinDiag output to our Support team can help troubleshoot sensor issues.  https://falcon.eu-1.crowdstrike.com/documentation/page/ecc97e75/falcon-sensor-for-windows-deployment#tb3367cc",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q149",
+    "prompt": "You need to quickly understand all detections by Tactic over the last 30 days. What dashboard can best provide this information?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Host setup and management > Manage endpoints > Host dashboard"
+      },
+      {
+        "id": "o2",
+        "text": "Threat intelligence > Monitor > Tactics dashboard"
+      },
+      {
+        "id": "o3",
+        "text": "Endpoint security > Monitor > Activity dashboard"
+      },
+      {
+        "id": "o4",
+        "text": "Exposure management > Assets > Dashboards"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q150",
+    "prompt": "When assigning a prevention policy, which of the following applies?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Endpoints do not receive any policy unless they are placed in a group"
+      },
+      {
+        "id": "o2",
+        "text": "Endpoints will receive the default policy in addition to any user defined policy"
+      },
+      {
+        "id": "o3",
+        "text": "Endpoints receive all defined policies unless an exclusion is in place"
+      },
+      {
+        "id": "o4",
+        "text": "Endpoints not otherwise targeted by a custom policy will receive the default policy"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "All unassigned hosts use the Default Policy, which doesn't block or kill suspicious activity unless you adjust those settings.  https://falcon.eu-1.crowdstrike.com/documentation/page/e5c21607/prevention-policy-settings#lcf26703",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q151",
+    "prompt": "When setting up a user with the Real Time Responder - Read Only Analyst Role, what type of access will the user have when connecting to a host?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Can remote into host and perform any action with full administrative privileges"
+      },
+      {
+        "id": "o2",
+        "text": "Can run a core set of read-only response commands to perform reconnaissance"
+      },
+      {
+        "id": "o3",
+        "text": "Can run all commands, including the ability to extract files using the get command, run commands that modify the state of the remote host, and run certain custom scripts"
+      },
+      {
+        "id": "o4",
+        "text": "Can run all commands, plus create custom scripts, upload files to hosts using the put command, and directly run executables using the run command"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "Real Time Responder - Read Only Analyst (RTR Read Only Analyst) - Can run a core set of read-only response commands to perform reconnaissance  https://falcon.eu-1.crowdstrike.com/documentation/page/b8c1738c/real-time-response-and-network-containment#nfa82ecc",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q152",
+    "prompt": "Where can you find a list of all the Sensor versions installed in the environment?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Host setup and management > Manage endpoints > Sensor Coverage Lookup"
+      },
+      {
+        "id": "o2",
+        "text": "Host setup and management > Manage endpoints > Sensor Health"
+      },
+      {
+        "id": "o3",
+        "text": "Dashboards and reports > Reports > Sensor report"
+      },
+      {
+        "id": "o4",
+        "text": "Audit logs > Audit logs > Bulk Host Audit"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q153",
+    "prompt": "What is the Machine-Learning Prevention Monitoring Report used for?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "To help debug which prevention policies settings are applied to a host or group of hosts"
+      },
+      {
+        "id": "o2",
+        "text": "To view malware that would have been blocked in your environment over a timeframe based on different Machine Learning Prevention settings"
+      },
+      {
+        "id": "o3",
+        "text": "To report on malware that was blocked in your environment by aggregating detections over a specified time period"
+      },
+      {
+        "id": "o4",
+        "text": "To debug Machine Learning Prevention settings when contacting support"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "Dashboard Details Use this dashboard to view malware that would have been blocked in your environment over the selected timeframe based on different Machine Learning Prevention settings (Cautious, Moderate, Aggressive or Extra Aggressive).  https://falcon.eu-1.crowdstrike.com/investigate/dashboards/machine-learning-prevention-monitoring?isLive=false&sharedTime=true&start=7d",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q154",
+    "prompt": "In which Falcon App do you find search tools for Hosts, Users and Events?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Activity App"
+      },
+      {
+        "id": "o2",
+        "text": "Investigate App"
+      },
+      {
+        "id": "o3",
+        "text": "Hosts App"
+      },
+      {
+        "id": "o4",
+        "text": "EAM App"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q155",
+    "prompt": "Which of the following are options in the NextGen AV detection and prevention settings On-Sensor ML sliders? (select all that apply)",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Moderate"
+      },
+      {
+        "id": "o2",
+        "text": "Disabled"
+      },
+      {
+        "id": "o3",
+        "text": "Cautious"
+      },
+      {
+        "id": "o4",
+        "text": "Aggressive"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q156",
+    "prompt": "What happens when you release a file from quarantine?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "After being released from quarantine, the user will be prompted before the file can execute for the first time"
+      },
+      {
+        "id": "o2",
+        "text": "Upon being released from quarantine, the Falcon administrator will be prompted before the file can be executed the first time out of quarantine"
+      },
+      {
+        "id": "o3",
+        "text": "The release is communicated to all other Crowdstrike hosts, and the file is allowed to execute on any host"
+      },
+      {
+        "id": "o4",
+        "text": "The file is allowed to execute on only that host"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "When you release a file from quarantine, it's allowed to execute on that host. Releasing a file does not affect other hosts. To avoid triggering more preventions on other hosts, add the file to your global allowlist.  https://falcon.eu-1.crowdstrike.com/documentation/page/a1f63328/quarantined-files#nfcfff18",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q157",
+    "prompt": "Which of the following are supported actions for hashes added to IOC Management?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Detect only"
+      },
+      {
+        "id": "o2",
+        "text": "Block, hide detection"
+      },
+      {
+        "id": "o3",
+        "text": "Block"
+      },
+      {
+        "id": "o4",
+        "text": "All of the above are supported actions"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q158",
+    "prompt": "What is the function of a single asterisk (*) in a Machine Learning Exclusion or Sensor Visibility Exclusion?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "The single asterisk is the insertion point for the variable list that follows the path. For example, C:\\Folder1\\folder*\\file.exe[1,2,3] would match C:\\Folder1\\folder1\\file.exe or C:\\Folder1\\folder2\\file.exe but not C:\\Folder1\\folder4\\file.exe"
+      },
+      {
+        "id": "o2",
+        "text": "The single asterisk is only used to start an expression and it represents the drive letter"
+      },
+      {
+        "id": "o3",
+        "text": "The single asterisk will match any number of characters, including none. It does not include separator characters, such as \\ or /, which separate portions of a file path"
+      },
+      {
+        "id": "o4",
+        "text": "The single asterisk will match any number of characters, including none. It does include separator characters, such as \\ or /, which separate portions of a file path"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "Match any number of characters, including none. Does not match beyond the path separators \\ or /.  https://falcon.eu-1.crowdstrike.com/documentation/page/e2e4b1b4/glob-syntax#a14b6422",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q159",
+    "prompt": "If a user wanted to install an older version of the Falcon sensor, how would they find the older installer file?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "By clicking one of the \"Older Versions\" links in the Sensor Downloads page"
+      },
+      {
+        "id": "o2",
+        "text": "Older versions of the sensor are not available for download"
+      },
+      {
+        "id": "o3",
+        "text": "Email CrowdStrike Support at support@crowdstrike.com"
+      },
+      {
+        "id": "o4",
+        "text": "Install the current sensor and click the downgrade button during the install"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "https://falcon.eu-1.crowdstrike.com/host-management/sensor-downloads/older-versions?os=Windows&osVersion=",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q160",
+    "prompt": "Which of the following auto policies should be selected if you want hosts updated to the third-newest version when a scheduled release happens?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Auto - N-3"
+      },
+      {
+        "id": "o2",
+        "text": "Auto - N-1"
+      },
+      {
+        "id": "o3",
+        "text": "Auto - N-2"
+      },
+      {
+        "id": "o4",
+        "text": "Auto - Latest"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "Auto - N-2: When a scheduled release happens, hosts with this setting update to the third-newest version   https://falcon.eu-1.crowdstrike.com/documentation/page/d2d629cf/sensor-update-policies",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q161",
+    "prompt": "What type of traffic and port needs to be allowed between your network and Crowdstrike's cloud network addresses?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "TCP on port 445"
+      },
+      {
+        "id": "o2",
+        "text": "UDP on port 400"
+      },
+      {
+        "id": "o3",
+        "text": "TLS on port 443"
+      },
+      {
+        "id": "o4",
+        "text": "SSL on port 450"
+      }
+    ],
+    "correctOptionId": "o3",
+    "explanation": "After agent installation, an agent opens a permanent TLS connection over port 443. The connection is kept open until the endpoint is turned off or the network connection is terminated.  https://falcon.eu-1.crowdstrike.com/documentation/page/ecc97e75/falcon-sensor-for-windows-deployment#o72de8aa",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q162",
+    "prompt": "What is IOC Management used for?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "To allowlist executables as a compensating control for false positives or to reduce noise"
+      },
+      {
+        "id": "o2",
+        "text": "To import Indicators of Compromise from threat intelligence feeds"
+      },
+      {
+        "id": "o3",
+        "text": "To control the execution of all untrusted executable, DLL, PowerShell, Python and many more file types x"
+      },
+      {
+        "id": "o4",
+        "text": "To to upload lists of commodity malware or comprehensive lists of all known trusted files"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q163",
+    "prompt": "What is the name for the unique host identifier in Falcon assigned to each sensor during sensor deployment?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "AID (Agent ID)"
+      },
+      {
+        "id": "o2",
+        "text": "EID (Endpoint ID)"
+      },
+      {
+        "id": "o3",
+        "text": "SID (Security ID)"
+      },
+      {
+        "id": "o4",
+        "text": "CID (Computer ID)"
+      }
+    ],
+    "correctOptionId": "o1",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q164",
+    "prompt": "Where do you find a list of inactive sensors?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Bulk Host Audit in Audit logs"
+      },
+      {
+        "id": "o2",
+        "text": "Host dashboard"
+      },
+      {
+        "id": "o3",
+        "text": "A sensor is always considered active until removed by an Administrator"
+      },
+      {
+        "id": "o4",
+        "text": "Inactive Sensor Report in Host setup and management"
+      }
+    ],
+    "correctOptionId": "o4",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q165",
+    "prompt": "When is RFM most common?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "After Prevention policy updates"
+      },
+      {
+        "id": "o2",
+        "text": "After Linux kernel updates"
+      },
+      {
+        "id": "o3",
+        "text": "After Falcon sensor updates"
+      },
+      {
+        "id": "o4",
+        "text": "After Falcon console updates"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q166",
+    "prompt": "How many non-Early adopter auto assignment options are there for sensor update policies?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "0"
+      },
+      {
+        "id": "o2",
+        "text": "1"
+      },
+      {
+        "id": "o3",
+        "text": "10"
+      },
+      {
+        "id": "o4",
+        "text": "3"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "Auto - Early Adopter: When an early adopter build is available for testing, hosts with this setting update to the build. For more info, see Testing sensor builds as an early adopter   https://falcon.eu-1.crowdstrike.com/documentation/page/d2d629cf/sensor-update-policies",
+    "source": "CCFA_Test_Exam_5"
+  },
+  {
+    "id": "q167",
+    "prompt": "Which of the following is NOT available in the User Search in the Investigate App?",
+    "options": [
+      {
+        "id": "o1",
+        "text": "Admin Tool Usage"
+      },
+      {
+        "id": "o2",
+        "text": "User IP History"
+      },
+      {
+        "id": "o3",
+        "text": "Logon Activities"
+      },
+      {
+        "id": "o4",
+        "text": "Process Executions"
+      }
+    ],
+    "correctOptionId": "o2",
+    "explanation": "",
+    "source": "CCFA_Test_Exam_5"
+  }
+];
+function shuffle(arr){
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+let QUESTIONS = [];
+let idx = 0;
+let score = 0;
+let answered = 0;
+let STATE = {};
+// ---- Progress persistence (localStorage) ----
+const PROGRESS_KEY = "ccfa_exams_1_5_merged_progress_v1";
+
+function setSaveStatus(msg){
+  const el = document.getElementById('saveStatus');
+  if (el) el.textContent = msg || "";
+}
+
+function getOptionSignature(opt){
+  return (opt && (opt.text ?? opt.label ?? opt.choice ?? opt.value)) ?? JSON.stringify(opt);
+}
+
+function snapshotProgress(){
+  const order = QUESTIONS.map(q => q.id);
+  const optionOrders = {};
+  for (const q of QUESTIONS){
+    optionOrders[q.id] = (q.options || []).map(getOptionSignature);
+  }
+  return { v:3, savedAt:new Date().toISOString(), idx, score, answered, STATE, order, optionOrders };
+}
+
+function saveProgress(force=false){
+  try{
+    if (!force){
+      const t = document.getElementById('autoSaveToggle');
+      if (t && !t.checked) return false;
+    }
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(snapshotProgress()));
+    setSaveStatus("Guardado ✔");
+    return true;
+  }catch(e){
+    console.warn("saveProgress failed", e);
+    setSaveStatus("No se pudo guardar");
+    return false;
+  }
+}
+
+function restoreFromSnapshot(snap){
+  if (!snap || !Array.isArray(snap.order)) return false;
+  const rawIndex = {};
+  for (const rq of RAW_QUESTIONS) rawIndex[rq.id] = rq;
+
+  const rebuilt = [];
+  for (const qid of snap.order){
+    const raw = rawIndex[qid];
+    if (!raw) continue;
+    const q = JSON.parse(JSON.stringify(raw));
+    const savedOptOrder = (snap.optionOrders && snap.optionOrders[qid]) || null;
+    if (savedOptOrder && Array.isArray(q.options)){
+      const map = new Map();
+      for (const opt of q.options) map.set(getOptionSignature(opt), opt);
+      const newOpts = [];
+      const used = new Set();
+      for (const sig of savedOptOrder){
+        const opt = map.get(sig);
+        if (opt && !used.has(sig)){ newOpts.push(opt); used.add(sig); }
+      }
+      for (const opt of q.options){
+        const sig = getOptionSignature(opt);
+        if (!used.has(sig)) newOpts.push(opt);
+      }
+      q.options = newOpts;
+    }
+    rebuilt.push(q);
+  }
+  if (!rebuilt.length) return false;
+
+  QUESTIONS = rebuilt;
+  idx = Math.min(Math.max(0, Number(snap.idx)||0), QUESTIONS.length-1);
+  score = Number(snap.score)||0;
+  answered = Number(snap.answered)||0;
+  STATE = snap.STATE || {};
+
+  updateStats();
+  render();
+  setSaveStatus("Progreso cargado ✔");
+  return true;
+}
+
+function loadProgress(forcePrompt=false){
+  try{
+    const raw = localStorage.getItem(PROGRESS_KEY);
+    if (!raw){ setSaveStatus("No hay guardado"); return false; }
+    const snap = JSON.parse(raw);
+    if (forcePrompt){
+      const ok = confirm("¿Cargar el progreso guardado? Esto reemplazará el estado actual.");
+      if (!ok) return false;
+    }
+    return restoreFromSnapshot(snap);
+  }catch(e){
+    console.warn("loadProgress failed", e);
+    setSaveStatus("No se pudo cargar");
+    return false;
+  }
+}
+
+function clearProgress(){
+  try{ localStorage.removeItem(PROGRESS_KEY); setSaveStatus("Borrado ✔"); }
+  catch(e){ console.warn("clearProgress failed", e); setSaveStatus("No se pudo borrar"); }
+}
+
+window.addEventListener('beforeunload', () => saveProgress(false));
+
+
+function initQuiz(){
+  QUESTIONS = JSON.parse(JSON.stringify(RAW_QUESTIONS));
+  shuffle(QUESTIONS);
+  QUESTIONS.forEach(q => shuffle(q.options));
+  STATE = {};
+  QUESTIONS.forEach(q => STATE[q.id] = { selected:null, graded:false, isCorrect:false });
+  idx = 0; score = 0; answered = 0;
+  document.getElementById("total").textContent = QUESTIONS.length;
+  document.getElementById("total2").textContent = QUESTIONS.length;
+  render();
+  updateStats();
+
+  // Offer to restore saved progress (if any) BEFORE writing a fresh snapshot
+  try{
+    const raw = localStorage.getItem(PROGRESS_KEY);
+    if (raw){
+      const ok = confirm("He encontrado un progreso guardado. ¿Quieres restaurarlo?");
+      if (ok){
+        const loaded = loadProgress(false);
+        if (loaded) return; // stop: loadProgress already renders + updates stats
+      }
+    }
+  }catch(e){}
+
+  // Initial save in case user closes immediately (only if we didn't restore)
+  saveProgress(false);
+}
+
+function updateStats(){
+  document.getElementById("answered").textContent = answered;
+  const scorePct = answered ? Math.round((score / answered) * 100) : 0;
+  document.getElementById("score").textContent = `${scorePct}% (${score}/${answered})`;
+  document.getElementById("currentIdx").textContent = (idx + 1);
+  const pct = QUESTIONS.length ? Math.round((answered / QUESTIONS.length) * 100) : 0;
+  document.getElementById("progressText").textContent = `Progress: ${pct}%`;
+  document.getElementById("progressDetail").textContent = `${answered} answered • ${score} correct`;
+  document.getElementById("barFill").style.width = `${pct}%`;
+  document.getElementById("prevBtn").disabled = (idx === 0);
+  document.getElementById("nextBtn").disabled = (idx === QUESTIONS.length - 1);
+  const q = QUESTIONS[idx];
+  const st = STATE[q.id];
+  document.getElementById("submitBtn").disabled = st.graded;
+}
+
+function escapeHtml(str){
+  return String(str)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function render(){
+  const q = QUESTIONS[idx];
+  const st = STATE[q.id];
+  const optsHtml = q.options.map((opt, i) => {
+    const displayLetter = String.fromCharCode(65 + i);
+    const checked = (st.selected === opt.id) ? "checked" : "";
+    const disabled = (st.graded && !(typeof __mistakesMode !== "undefined" && __mistakesMode)) ? "disabled" : "";
+    return `
+      <label class="opt">
+        <input type="radio" name="opt" value="${opt.id}" ${checked} ${disabled} />
+        <div class="letter">${displayLetter}.</div>
+        <div class="text">${escapeHtml(opt.text)}</div>
+      </label>
+    `;
+  }).join("");
+
+  document.getElementById("questionArea").innerHTML = `
+    <p class="qNum">Question ${idx + 1} of ${QUESTIONS.length}</p>
+    <div class="qTitle">${escapeHtml(q.prompt)}</div>
+    <div class="options">${optsHtml}</div>
+    <div class="feedback" id="feedbackBox"></div>
+  `;
+
+  document.querySelectorAll('input[name="opt"]').forEach(r => {
+    r.addEventListener("change", () => { STATE[q.id].selected = r.value; });
+  });
+
+  if (st.graded) showFeedback(q, st);
+  else hideFeedback();
+
+  updateStats();
+}
+
+function submitAnswer(){
+  const q = QUESTIONS[idx];
+  const st = STATE[q.id];
+
+  const wasGraded = !!st.graded;
+  const prevCorrect = !!st.isCorrect;
+
+  // In normal mode, prevent re-submitting already graded questions.
+  // In mistakes practice mode, allow re-attempts on the same question.
+  if (wasGraded && !(typeof __mistakesMode !== "undefined" && __mistakesMode)) return;
+
+  if (!st.selected){
+    const fb = document.getElementById("feedbackBox");
+    fb.style.display = "block";
+    fb.className = "feedback bad";
+    fb.innerHTML = `<div class="row"><span class="badge bad">Select an answer</span><span class="muted">Choose one option, then submit.</span></div>`;
+    return;
+  }
+
+  st.graded = true;
+  st.isCorrect = (st.selected === q.correctOptionId);
+
+  // Only count answered the first time a question gets graded.
+  if (!wasGraded){
+    answered += 1;
+    if (st.isCorrect) score += 1;
+  } else {
+    // Re-grade (mistakes practice): adjust score if correctness changed.
+    if (prevCorrect !== st.isCorrect){
+      score += (st.isCorrect ? 1 : -1);
+    }
+  }
+
+  // Disable radios only in normal mode; in mistakes practice allow changing answer and re-submitting.
+  const lock = !(typeof __mistakesMode !== "undefined" && __mistakesMode);
+  document.querySelectorAll('input[name="opt"]').forEach(r => r.disabled = lock);
+
+  showFeedback(q, st);
+  updateStats();
+
+  // Refresh mistake loop so corrected questions disappear from "practice mistakes" navigation.
+  if (typeof __mistakesMode !== "undefined" && __mistakesMode){
+    try{ __refreshMistakeLoop(); }catch(e){}
+    // If no mistakes left, auto-exit practice mode back to the test position.
+    try{
+      if (__mistakeIds && __mistakeIds.length === 0){
+        const btn = document.getElementById("practiceMistakesBtn");
+        __mistakesMode = false;
+        if (btn) btn.textContent = "Repasar falladas";
+        if (__returnQid) gotoQuestionId(__returnQid);
+        __returnQid = null;
+      }
+    }catch(e){}
+  }
+
+  saveProgress(false);
+}
+
+function showFeedback(q, st){
+  const fb = document.getElementById("feedbackBox");
+  fb.style.display = "block";
+  fb.className = st.isCorrect ? "feedback good" : "feedback bad";
+  const status = st.isCorrect ? "Correct" : "Incorrect";
+  const badgeClass = st.isCorrect ? "good" : "bad";
+  const points = st.isCorrect ? "+1 point" : "0 points";
+  const correctIndex = q.options.findIndex(o => o.id === q.correctOptionId);
+  const correctLetter = correctIndex >= 0 ? String.fromCharCode(65 + correctIndex) : "?";
+  fb.innerHTML = `
+    <div class="row">
+      <span class="badge ${badgeClass}">${status}</span>
+      <span class="badge">${points}</span>
+      <span class="muted">Correct answer: <b>${correctLetter}</b></span>
+    </div>
+    <div class="explain"><b>Explanation:</b> ${escapeHtml(q.explanation)}</div>
+  `;
+}
+
+function hideFeedback(){
+  const fb = document.getElementById("feedbackBox");
+  if (!fb) return;
+  fb.style.display = "none";
+  fb.innerHTML = "";
+}
+
+function nextQ(){
+  if (typeof __mistakesMode !== "undefined" && __mistakesMode){ if (__goMistake(1)) return; }
+  if (idx < QUESTIONS.length - 1){ idx += 1; render(); }
+  saveProgress(false);
+}
+function prevQ(){
+  if (typeof __mistakesMode !== "undefined" && __mistakesMode){ if (__goMistake(-1)) return; }
+  if (idx > 0){ idx -= 1; render(); }
+  saveProgress(false);
+}
+
+function resetQuiz(){
+  if (!confirm("Reset the quiz and reshuffle questions/answers? Your progress will be lost.")) return;
+  initQuiz();
+
+  saveProgress(false);
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowRight") nextQ();
+  if (e.key === "ArrowLeft") prevQ();
+  if (e.key === "Enter") { e.preventDefault(); submitAnswer(); }
+});
+
+/* ===== Mistakes / Export / Practice Mode ===== */
+let __mistakesMode = false;
+let __mistakeIds = [];
+let __mistakePos = 0;
+let __returnQid = null; // remember where you were in normal test before practicing mistakes
+
+function __getLetterForOption(q, optId){
+  const i = (q.options||[]).findIndex(o => o.id === optId);
+  return i >= 0 ? String.fromCharCode(65+i) : "?";
+}
+function __getOptionTextById(q, optId){
+  const o = (q.options||[]).find(x => x.id === optId);
+  return o ? (o.text || "") : "";
+}
+function __buildMistakes(){
+  if (!Array.isArray(QUESTIONS)) return [];
+  return QUESTIONS.filter(q => {
+    const st = STATE && STATE[q.id];
+    return st && st.graded && !st.isCorrect;
+  });
+}
+function __downloadFile(filename, content, mime){
+  try{
+    const blob = new Blob([content], {type: mime});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url), 500);
+  }catch(e){
+    alert("No se pudo exportar: " + e);
+  }
+}
+function __csvEscape(v){
+  const s = (v===null || v===undefined) ? "" : String(v);
+  const needs = /[",\n\r]/.test(s);
+  const inner = s.replace(/"/g,'""');
+  return needs ? `"${inner}"` : inner;
+}
+function __buildExportRows(mode){
+  // mode: "mistakes" | "all"
+  const rows = [];
+  for (const q of QUESTIONS){
+    const st = STATE[q.id];
+    if (!st || !st.graded) continue;
+    if (mode === "mistakes" && st.isCorrect) continue;
+
+    const selLetter = st.selected ? __getLetterForOption(q, st.selected) : "";
+    const selText = st.selected ? __getOptionTextById(q, st.selected) : "";
+    const corLetter = __getLetterForOption(q, q.correctOptionId);
+    const corText = __getOptionTextById(q, q.correctOptionId);
+
+    // include ALL options (A/B/C/D/...)
+    const options = [];
+    if (Array.isArray(q.options)){
+      for (let i=0;i<q.options.length;i++){
+        const opt = q.options[i];
+        const letter = String.fromCharCode(65+i);
+        options.push({ letter, id: opt.id, text: opt.text || "" });
+      }
+    }
+
+    rows.push({
+      id: q.id,
+      prompt: q.prompt || "",
+      options,
+      yourAnswerLetter: selLetter,
+      yourAnswerText: selText,
+      correctLetter: corLetter,
+      correctText: corText,
+      isCorrect: !!st.isCorrect,
+      explanation: q.explanation || "",
+      reference: q.reference || ""
+    });
+  }
+  return rows;
+}
+function exportResultsJSON(mode){
+  const rows = __buildExportRows(mode);
+  const payload = {
+    exportedAt: new Date().toISOString(),
+    quiz: "CCFA",
+    totalQuestions: QUESTIONS.length,
+    answered: answered,
+    score: score,
+    mode,
+    results: rows
+  };
+  __downloadFile(`ccfa_${mode}_export.json`, JSON.stringify(payload, null, 2), "application/json;charset=utf-8");
+}
+function exportResultsCSV(mode){
+  const rows = __buildExportRows(mode);
+  // Determine max options length for header (cap at 10 just in case)
+  let maxOpt = 0;
+  for (const r of rows){
+    if (r.options && r.options.length > maxOpt) maxOpt = r.options.length;
+  }
+  maxOpt = Math.min(maxOpt, 10);
+  const optHeaders = [];
+  for (let i=0;i<maxOpt;i++){
+    optHeaders.push(`option_${String.fromCharCode(65+i)}`);
+  }
+
+  const header = ["id","prompt", ...optHeaders, "yourAnswerLetter","yourAnswerText","correctLetter","correctText","isCorrect","explanation","reference"];
+  const lines = [header.join(",")];
+
+  for (const r of rows){
+    const optCols = [];
+    for (let i=0;i<maxOpt;i++){
+      optCols.push((r.options && r.options[i]) ? (r.options[i].text || "") : "");
+    }
+    lines.push([
+      r.id,
+      r.prompt,
+      ...optCols,
+      r.yourAnswerLetter,
+      r.yourAnswerText,
+      r.correctLetter,
+      r.correctText,
+      r.isCorrect,
+      r.explanation,
+      r.reference
+    ].map(__csvEscape).join(","));
+  }
+
+  __downloadFile(`ccfa_${mode}_export.csv`, lines.join("\n"), "text/csv;charset=utf-8");
+}
+
+function __renderOptionsReview(q, st){
+  try{
+    const sel = st ? st.selected : null;
+    const correct = q.correctOptionId || q.correct || q.answer;
+    let out = '<div class="opt-review">';
+    for (const opt of (q.options || [])){
+      const oid = opt.id ?? opt.value ?? opt.key ?? opt.letter;
+      const letter = __getLetterForOption ? __getLetterForOption(q, oid) : (opt.letter || "");
+      const txt = opt.text || opt.label || opt.valueText || opt.value || "";
+      let cls = 'opt-item';
+      if (oid === correct) cls += ' correct';
+      if (sel && oid === sel){
+        cls += (oid === correct) ? ' selected-correct' : ' selected-wrong';
+      }
+      out += `<div class="${cls}"><span class="opt-letter">${escapeHtml(letter)}.</span> <span class="opt-text">${escapeHtml(txt)}</span></div>`;
+    }
+    out += '</div>';
+    return out;
+  }catch(e){
+    return '';
+  }
+}
+
+function openMistakesModal(){
+  const modal = document.getElementById("mistakesModal");
+  const list = document.getElementById("mistakesList");
+  const empty = document.getElementById("mistakesEmpty");
+  if (!modal || !list || !empty) return;
+
+  const mistakes = __buildMistakes();
+  list.innerHTML = "";
+  empty.style.display = mistakes.length ? "none" : "block";
+
+  const subtitle = document.getElementById("mistakesSubtitle");
+  if (subtitle){
+    subtitle.textContent = mistakes.length
+      ? `Tienes ${mistakes.length} preguntas falladas (se guarda con tu progreso).`
+      : "No hay preguntas falladas todavía.";
+  }
+
+  for (const q of mistakes){
+    const st = STATE[q.id];
+    const yourLetter = st.selected ? __getLetterForOption(q, st.selected) : "?";
+    const yourText = st.selected ? __getOptionTextById(q, st.selected) : "";
+    const corLetter = __getLetterForOption(q, q.correctOptionId);
+    const corText = __getOptionTextById(q, q.correctOptionId);
+
+    const card = document.createElement("div");
+    card.className = "mistake-card";
+    card.innerHTML = `
+      <div class="mistake-top">
+        <div class="mistake-q">${escapeHtml(q.id)} • ${escapeHtml(q.prompt || q.question || "")}</div>
+        <div class="mistake-meta">
+          <span class="pill bad">Incorrecta</span>
+          <span class="pill">Tu: <b>${escapeHtml(yourLetter)}</b></span>
+          <span class="pill good">Correcta: <b>${escapeHtml(corLetter)}</b></span>
+        </div>
+      </div>
+
+      <div class="mistake-box" style="margin-top:10px;">
+        <div><b>Opciones</b></div>
+        ${__renderOptionsReview(q, st)}
+        <div class="tiny" style="opacity:.85; margin-top:8px;">
+          <b>Tu respuesta:</b> ${escapeHtml(yourLetter)}. ${escapeHtml(yourText)}
+          &nbsp;•&nbsp;
+          <b>Correcta:</b> ${escapeHtml(corLetter)}. ${escapeHtml(corText)}
+        </div>
+      </div>
+
+      <div class="mistake-box" style="margin-top:10px;">
+        <div><b>Explicación</b></div>
+        <div class="tiny">${escapeHtml(q.explanation || q.rationale || "")}</div>
+      </div>
+      ${q.reference ? `<div class="tiny" style="margin-top:8px; opacity:.8;"><b>Reference:</b> ${escapeHtml(q.reference)}</div>` : ``}
+      <div class="mistake-actions">
+        <button class="ghost" type="button" data-goto="${escapeHtml(q.id)}">Ir a esta pregunta</button>
+      </div>
+    `;
+    card.querySelector('button[data-goto]').addEventListener('click', () => {
+      closeMistakesModal();
+      gotoQuestionId(q.id);
+    });
+    list.appendChild(card);
+  }
+
+  modal.style.display = "flex";
+}
+function closeMistakesModal(){
+  const modal = document.getElementById("mistakesModal");
+  if (modal) modal.style.display = "none";
+}
+
+function gotoQuestionId(qid){
+  const i = QUESTIONS.findIndex(q => q.id === qid);
+  if (i < 0) return;
+  idx = i;
+  render();
+  const st = STATE[qid];
+  if (st && st.graded){
+    // show stored feedback (consistent)
+    showFeedback(QUESTIONS[idx], st);
+  }
+  saveProgress(false);
+}
+
+function __refreshMistakeLoop(){
+  const mistakes = __buildMistakes();
+  __mistakeIds = mistakes.map(q => q.id);
+  if (__mistakePos >= __mistakeIds.length) __mistakePos = 0;
+  if (__mistakeIds.length === 0){
+    __mistakesMode = false;
+    const btn = document.getElementById("practiceMistakesBtn");
+    if (btn) btn.textContent = "Repasar falladas";
+  }
+}
+
+// Open a dedicated "practice mistakes" panel that behaves like a new test:
+// - Only incorrect questions
+// - Lets you answer again
+// - Updates the real saved progress/state
+let __mpReturnQid = null;
+let __mpIds = [];
+let __mpPos = 0;
+const __mpStorageKey = (typeof STORAGE_KEY !== "undefined" ? STORAGE_KEY : "quiz") + "::mistakesPracticeSession";
+
+function __mpSave(){
+  try{
+    const payload = {
+      ids: __mpIds,
+      pos: __mpPos,
+      returnQid: __mpReturnQid,
+      // store draft selection per qid so you can close and continue later
+      draft: __mpDraft || {},
+      cleared: Array.from(__mpCleared || [])
+    };
+    localStorage.setItem(__mpStorageKey, JSON.stringify(payload));
+  }catch(e){}
+}
+function __mpLoad(){
+  try{
+    const raw = localStorage.getItem(__mpStorageKey);
+    if (!raw) return null;
+    return JSON.parse(raw);
+  }catch(e){ return null; }
+}
+function __mpClear(){
+  try{ localStorage.removeItem(__mpStorageKey); }catch(e){}
+}
+
+let __mpDraft = {}; // qid -> optionId (selected in panel but not submitted)
+
+function openMistakesPracticePanel(){
+  const mistakes = __buildMistakes(); // incorrect + graded
+  const ids = mistakes.map(q => q.id);
+  if (!ids.length){
+    alert("No tienes falladas todavía.");
+    return;
+  }
+
+  // Remember where you were in the normal test
+  try{ __mpReturnQid = (QUESTIONS[idx] && QUESTIONS[idx].id) ? QUESTIONS[idx].id : null; }catch(e){ __mpReturnQid = null; }
+
+  // Load prior session if it matches the current mistakes set (same ids in same order)
+  const prev = __mpLoad();
+  if (prev && Array.isArray(prev.ids) && prev.ids.length){
+    const same = prev.ids.length === ids.length && prev.ids.every((v,i)=>v===ids[i]);
+    if (same){
+      __mpIds = prev.ids.slice();
+      __mpPos = Math.min(Math.max(prev.pos||0,0), __mpIds.length-1);
+      __mpDraft = (prev.draft && typeof prev.draft==="object") ? prev.draft : {};
+      __mpCleared = new Set(Array.isArray(prev.cleared)?prev.cleared:[]);
+    } else {
+      __mpIds = ids.slice();
+      __mpPos = 0;
+      __mpDraft = {};
+      __mpCleared = new Set();
+    }
+  } else {
+    __mpIds = ids.slice();
+    __mpPos = 0;
+    __mpDraft = {};
+    __mpCleared = new Set();
+  }
+
+  // Open modal and render
+  const modal = document.getElementById("mistakesPracticeModal");
+  if (!modal) return;
+  modal.style.display = "flex";
+  mpRender();
+  __mpSave();
+}
+
+function closeMistakesPracticePanel(){
+  const modal = document.getElementById("mistakesPracticeModal");
+  if (modal) modal.style.display = "none";
+  // return to original question (where you were in the test)
+  if (__mpReturnQid) gotoQuestionId(__mpReturnQid);
+  __mpReturnQid = null;
+  __mpSave();
+  saveProgress(false);
+}
+
+function mpNav(delta){
+  if (!__mpIds.length) return;
+  __mpPos = (__mpPos + delta) % __mpIds.length;
+  if (__mpPos < 0) __mpPos = __mpIds.length - 1;
+  mpRender();
+  __mpSave();
+}
+
+function mpRender(){
+  const title = document.getElementById("mpTitle");
+  const sub   = document.getElementById("mpSubtitle");
+  const body  = document.getElementById("mpBody");
+  const prog  = document.getElementById("mpProgress");
+  const prevB = document.getElementById("mpPrevBtn");
+  const nextB = document.getElementById("mpNextBtn");
+  const submitB = document.getElementById("mpSubmitBtn");
+
+  if (!body) return;
+
+  // Recompute remaining mistakes live (because user can fix them in this panel)
+  const liveIds = __buildMistakes().map(q => q.id);
+  // Keep only ids that are still incorrect AND not already cleared in this panel
+  __mpIds = __mpIds.filter(id => liveIds.includes(id) && !__mpCleared.has(id));
+  if (!__mpIds.length){
+    // Done
+    body.innerHTML = `<div class="tiny" style="opacity:.9; padding:10px 0;"><b>✅ Perfecto.</b> Ya no te quedan preguntas falladas.</div>`;
+    if (title) title.textContent = "Repasar falladas";
+    if (sub) sub.textContent = "No quedan falladas. Puedes cerrar para volver al test.";
+    if (prog) prog.textContent = "";
+    if (prevB) prevB.disabled = true;
+    if (nextB) nextB.disabled = true;
+    if (submitB) submitB.disabled = true;
+    __mpClear();
+    return;
+  }
+  if (__mpPos >= __mpIds.length) __mpPos = 0;
+
+  const qid = __mpIds[__mpPos];
+  const q = QUESTIONS.find(x => x.id === qid);
+  if (!q){
+    body.innerHTML = `<div class="tiny">Error: no encuentro la pregunta ${escapeHtml(qid)}.</div>`;
+    return;
+  }
+
+  // Panel header
+  if (title) title.textContent = "Repasar falladas (rehacer)";
+  if (sub) sub.textContent = `Vas a rehacer SOLO las falladas. Al corregir una, desaparece de aquí.`;
+  if (prog) prog.textContent = `Falladas pendientes: ${__mpIds.length} • ${__mpPos+1}/${__mpIds.length}`;
+
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const draftSel = __mpDraft[qid] || "";
+
+  // Render question + options
+  let html = '';
+  html += `<div class="mp-qid">${escapeHtml(q.id)}</div>`;
+  html += `<div class="mp-prompt">${escapeHtml(q.prompt || q.question || "")}</div>`;
+  html += `<div class="mp-opts">`;
+
+  for (let i=0;i<(q.options||[]).length;i++){
+    const opt = q.options[i];
+    const letter = letters[i] || (i+1);
+    const checked = (draftSel && draftSel === opt.id) ? 'checked' : '';
+    html += `
+      <label class="mp-opt">
+        <input type="radio" name="mpOpt" value="${escapeHtml(opt.id)}" ${checked}>
+        <span class="mp-opt-letter">${escapeHtml(letter)}.</span>
+        <span class="mp-opt-text">${escapeHtml(opt.text || "")}</span>
+      </label>
+    `;
+  }
+  html += `</div>`;
+
+  body.innerHTML = html;
+
+  // Draft selection changes
+  body.querySelectorAll('input[name="mpOpt"]').forEach(el => {
+    el.addEventListener('change', () => {
+      __mpDraft[qid] = el.value;
+      __mpSave();
+    });
+  });
+
+  if (prevB) prevB.disabled = (__mpIds.length <= 1);
+  if (nextB) nextB.disabled = (__mpIds.length <= 1);
+  if (submitB) submitB.disabled = false;
+}
+
+function __mpMarkAttempt(qid, optId){
+  const q = QUESTIONS.find(x => x.id === qid);
+  if (!q) return {isCorrect:false};
+  // Evaluate correctness WITHOUT touching the main saved progress/score.
+  const ok = (optId === q.correctOptionId);
+  if (ok) __mpCleared.add(qid);
+  else __mpCleared.delete(qid);
+  return {isCorrect: ok};
+}
+
+function mpSubmit(){
+  if (!__mpIds.length) return;
+  const qid = __mpIds[__mpPos];
+  const body = document.getElementById("mpBody");
+  if (!body) return;
+
+  const sel = body.querySelector('input[name="mpOpt"]:checked');
+  if (!sel){
+    alert("Selecciona una opción antes de enviar.");
+    return;
+  }
+  const optId = sel.value;
+
+  __mpMarkAttempt(qid, optId);
+
+  // Clear draft for this question
+  try{ delete __mpDraft[qid]; }catch(e){}
+
+  // Persist ONLY the practice panel session (no impact on global stats)
+  __mpSave();
+
+  // Re-render (it will drop fixed questions via __mpCleared)
+  mpRender();
+}
+
+// Keep old API calls from other parts safe
+function toggleMistakesPractice(){ openMistakesPracticePanel(); }
+function __goMistake(){ return false; }
+function retryCurrentIfWrong(){ openMistakesPracticePanel(); }
+
+function __goMistake(delta){
+  if (!__mistakesMode) return false;
+  __refreshMistakeLoop();
+  if (__mistakeIds.length === 0) return true;
+
+  __mistakePos = (__mistakePos + delta) % __mistakeIds.length;
+  if (__mistakePos < 0) __mistakePos = __mistakeIds.length - 1;
+  gotoQuestionId(__mistakeIds[__mistakePos]);
+  return true;
+}
+
+function retryCurrentIfWrong(){
+  const q = QUESTIONS[idx];
+  const st = STATE[q.id];
+  if (!st || !st.graded || st.isCorrect) return;
+  // Undo grading for this question
+  st.graded = false;
+  st.isCorrect = false;
+  st.selected = null;
+
+  if (answered > 0) answered -= 1;
+  // score unchanged because it was incorrect
+  document.querySelectorAll('input[name="opt"]').forEach(r => { r.disabled = false; r.checked = false; });
+  hideFeedback();
+  updateStats();
+  saveProgress(false);
+}
+
+// Wrap navigation + submit to keep mistakes mode in sync
+(function hookMistakeMode(){
+  try{
+    const _nextQ = nextQ;
+    const _prevQ = prevQ;
+    window.nextQ = function(){ if (__goMistake(1)) return; _nextQ(); };
+    window.prevQ = function(){ if (__goMistake(-1)) return; _prevQ(); };
+
+    const _submitAnswer = submitAnswer;
+    window.submitAnswer = function(){
+      _submitAnswer();
+      __refreshMistakeLoop();
+    };
+
+    // Add small "Reintentar" button in feedback when incorrect
+    const _showFeedback = showFeedback;
+    window.showFeedback = function(q, st){ _showFeedback(q, st); };
+  }catch(e){}
+})();
+
+function setupMistakesUI(){
+  const reviewBtn = document.getElementById("reviewMistakesBtn");
+  const practiceBtn = document.getElementById("practiceMistakesBtn");
+  const closeBtn = document.getElementById("closeMistakesModal");
+  const modal = document.getElementById("mistakesModal");
+
+  // Practice (panel)
+  const pModal = document.getElementById("mistakesPracticeModal");
+  const pClose = document.getElementById("closeMistakesPracticeModal");
+  const pPrev  = document.getElementById("mpPrevBtn");
+  const pNext  = document.getElementById("mpNextBtn");
+  const pSubmit= document.getElementById("mpSubmitBtn");
+  const pExit  = document.getElementById("mpExitBtn");
+  const expAllJson = document.getElementById("exportAllJsonBtn");
+  const expAllCsv  = document.getElementById("exportAllCsvBtn");
+
+  if (reviewBtn) reviewBtn.addEventListener('click', openMistakesModal);
+  if (practiceBtn) practiceBtn.addEventListener('click', openMistakesPracticePanel);
+  if (closeBtn) closeBtn.addEventListener('click', closeMistakesModal);
+  if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) closeMistakesModal(); });
+
+  if (pClose) pClose.addEventListener('click', closeMistakesPracticePanel);
+  if (pExit)  pExit.addEventListener('click', closeMistakesPracticePanel);
+  if (pModal) pModal.addEventListener('click', (e) => { if (e.target === pModal) closeMistakesPracticePanel(); });
+  if (pPrev)  pPrev.addEventListener('click', () => mpNav(-1));
+  if (pNext)  pNext.addEventListener('click', () => mpNav(1));
+  if (pSubmit)pSubmit.addEventListener('click', mpSubmit);
+
+  // Export buttons inside review modal
+  const expMJ = document.getElementById("exportMistakesJsonBtn");
+  const expMC = document.getElementById("exportMistakesCsvBtn");
+  if (expMJ) expMJ.addEventListener('click', () => exportJson('mistakes'));
+  if (expMC) expMC.addEventListener('click', () => exportCsv('mistakes'));
+
+  if (expAllJson) expAllJson.addEventListener('click', () => exportJson('all'));
+  if (expAllCsv)  expAllCsv.addEventListener('click', () => exportCsv('all'));
+
+  // ESC closes practice modal
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape'){
+      const pm = document.getElementById("mistakesPracticeModal");
+      if (pm && pm.style.display !== "none") closeMistakesPracticePanel();
+    }
+  });
+}
+/* ===== End Mistakes / Export / Practice Mode ===== */
+
+window.addEventListener('DOMContentLoaded', () => {
+  setupMistakesUI();
+  initQuiz();
+// Validate question count (should not render on page)
+(function(){
+  try{
+    const expected = (Array.isArray(QUESTIONS) ? QUESTIONS.length : 0);
+    const el = document.getElementById('countWarn');
+    if (el && Array.isArray(QUESTIONS) && QUESTIONS.length !== expected){
+      el.style.display = 'block';
+      el.textContent = `⚠️ Expected ${expected} questions, but loaded ${QUESTIONS.length}. Some questions are missing.`;
+    }
+  }catch(e){}
+})();
+
+});
+</script>
+
+<!-- Mistakes / Review Modal -->
+<div id="mistakesModal" class="modal" style="display:none;">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="mistakesTitle">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title" id="mistakesTitle">Preguntas falladas</div>
+        <div class="modal-sub" id="mistakesSubtitle">Aquí verás tus fallos (guardado con el progreso hasta que reinicies).</div>
+      </div>
+      <button class="ghost" type="button" id="closeMistakesModal">Cerrar</button>
+    </div>
+
+    <div class="modal-actions">
+      <button class="ghost" type="button" id="exportMistakesJsonBtn">Exportar falladas (JSON)</button>
+      <button class="ghost" type="button" id="exportMistakesCsvBtn">Exportar falladas (CSV)</button>
+      <button class="ghost" type="button" id="exportAllJsonBtn">Exportar todo (JSON)</button>
+      <button class="ghost" type="button" id="exportAllCsvBtn">Exportar todo (CSV)</button>
+    </div>
+
+    <div class="modal-body">
+      <div id="mistakesEmpty" class="muted" style="display:none; padding:10px 0;">No hay preguntas falladas todavía.</div>
+      <div id="mistakesList" class="mistakes-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Mistakes Practice Modal -->
+<div class="modal" id="mistakesPracticeModal" style="display:none;">
+  <div class="modal-card">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title" id="mpTitle">Repasar falladas</div>
+        <div class="modal-sub" id="mpSubtitle">Vuelve a responder SOLO las preguntas falladas.</div>
+      </div>
+      <button class="ghost" id="closeMistakesPracticeModal" type="button">Cerrar ✕</button>
+    </div>
+
+    <div class="modal-actions">
+      <span class="pill" id="mpProgress"></span>
+      <button class="ghost" type="button" id="mpPrevBtn">← Anterior</button>
+      <button class="ghost" type="button" id="mpNextBtn">Siguiente →</button>
+      <button class="primary" type="button" id="mpSubmitBtn">Enviar respuesta</button>
+      <button class="ghost" type="button" id="mpExitBtn">Volver al test</button>
+    </div>
+
+    <div class="modal-body" id="mpBody"></div>
+  </div>
+</div>
+
+<style>
+  .mp-qid{opacity:.75; font-size:12px; margin-bottom:6px;}
+  .mp-prompt{font-size:18px; font-weight:750; line-height:1.35; margin-bottom:12px;}
+  .mp-opts{display:grid; gap:10px; margin-top:10px;}
+  .mp-opt{display:flex; gap:10px; align-items:flex-start; padding:12px 12px; border-radius:14px;
+    border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.03); cursor:pointer;}
+  .mp-opt:hover{background:rgba(255,255,255,.05);}
+  .mp-opt input{margin-top:3px;}
+  .mp-opt-letter{font-weight:800; min-width:26px;}
+  .mp-opt-text{opacity:.95;}
+</style>
+
+</body>
+</html>
+
+
